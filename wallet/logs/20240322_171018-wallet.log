@@ -1,0 +1,14 @@
+2024-03-22 18:10:18 [INFO    ] [werkzeug       ] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:7777
+2024-03-22 18:10:18 [INFO    ] [werkzeug       ] [33mPress CTRL+C to quit[0m
+2024-03-22 18:10:20 [ERROR   ] [staging        ] exactly one of source, location, file or data must be given
+Traceback (most recent call last):
+  File "C:\matbmoser\simple-wallet\wallet\start.py", line 113, in schema
+    g.parse(data=body,format='turtle', source=str)
+  File "C:\Python312\Lib\site-packages\rdflib\graph.py", line 1468, in parse
+    source = create_input_source(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\rdflib\parser.py", line 345, in create_input_source
+    raise ValueError(
+ValueError: exactly one of source, location, file or data must be given
+2024-03-22 18:10:20 [INFO    ] [werkzeug       ] 127.0.0.1 - - [22/Mar/2024 18:10:20] "POST /schema HTTP/1.1" 200 -

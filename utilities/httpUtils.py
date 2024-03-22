@@ -1,6 +1,6 @@
 import requests
 
-class httpUtils:
+class HttpUtils:
 
     # do post request without session
     def do_get(url,verify=False,headers=None,timeout=None,params=None,allow_redirects=False):

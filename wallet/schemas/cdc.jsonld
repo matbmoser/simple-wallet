@@ -1,0 +1,6 @@
+{
+    "data": {
+        "@id": "https://raw.githubusercontent.com/matbmoser/simple-wallet/master/wallet/schemas/nice.jsonld",
+        "@type": "@json"
+      }
+}

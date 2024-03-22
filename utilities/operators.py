@@ -33,7 +33,7 @@ class op:
     @staticmethod
     def to_json_file(source_object,json_file_path,file_open_mode="w",indent=2):
         tmp_json_string=op.to_json(source_object=source_object,indent=indent)
-        op.write_to_file(data=tmp_json_string, file_path=json_file_path,open_mode=file_open_mode, end="")
+        op.write_to_file(data=tmp_json_string, filePath=json_file_path,openMode=file_open_mode, end="")
         
     @staticmethod
     def read_json_file(filePath,encoding="utf-8"):

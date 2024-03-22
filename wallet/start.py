@@ -16,6 +16,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+from rdflib import Graph
 
 # Set up imports configuration
 import argparse
@@ -24,13 +25,14 @@ import logging.config
 import logging
 from datetime import datetime
 import traceback
-from logging.config import fileConfig
-from utilities.httpUtils import httpUtils
+from utilities.httpUtils import HttpUtils
 from utilities.operators import op
 import yaml
+from pyld import jsonld
+import json
 
 op.make_dir("logs")
-
+op.make_dir("test")
 # Load the config file
 with open('./logging_config.yml', 'rt') as f:
     # Read the yaml configuration
@@ -85,6 +87,8 @@ def sign_credential():
     """
     Signs a credential using the private key provided in the configuration
 
+    Receives:
+        vc: :vc: unsigned verifiable credential
     Returns:
         response: :vc: Signed verifiable credential
     """
@@ -94,6 +98,30 @@ def sign_credential():
     
     logger.debug("[] Credential Signed!")
     return jsonify(body)
+
+@app.post("/schema")
+def schema():
+    """
+    Generates a schema for the verifiable credentials
+
+    Receives:
+        vc: :vc: unsigned verifiable credential
+    Returns:
+        response: :vc: schema
+    """
+    try:
+        g = Graph()
+        body = request.data 
+        g.parse(data=body,format='turtle')
+        #output file name and file format here
+        response = g.serialize(format='json-ld')
+        op.to_json_file(response, "test/schema.json")
+        return jsonify(response)
+    except Exception as e:
+        logger.exception(e)
+        traceback.print_exc()
+
+    return jsonify(HttpUtils.get_error_response("No body detected!"))
 
 
 if __name__ == '__main__':

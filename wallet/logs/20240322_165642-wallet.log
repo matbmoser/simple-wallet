@@ -1,0 +1,11 @@
+2024-03-22 17:56:42 [INFO    ] [werkzeug       ] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:7777
+2024-03-22 17:56:42 [INFO    ] [werkzeug       ] [33mPress CTRL+C to quit[0m
+2024-03-22 17:56:44 [ERROR   ] [staging        ] cannot access local variable 'body' where it is not associated with a value
+Traceback (most recent call last):
+  File "C:\matbmoser\simple-wallet\wallet\start.py", line 111, in schema
+    if not body in request:
+           ^^^^
+UnboundLocalError: cannot access local variable 'body' where it is not associated with a value
+2024-03-22 17:56:44 [INFO    ] [werkzeug       ] 127.0.0.1 - - [22/Mar/2024 17:56:44] "POST /schema HTTP/1.1" 200 -
+2024-03-22 17:58:08 [INFO    ] [werkzeug       ] 127.0.0.1 - - [22/Mar/2024 17:58:08] "POST /schema HTTP/1.1" 200 -

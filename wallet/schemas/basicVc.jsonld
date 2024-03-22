@@ -1,0 +1,19 @@
+{
+    "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://raw.githubusercontent.com/matbmoser/simple-wallet/master/wallet/schemas/cdc.jsonld"
+    ],
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "type": [
+        "VerifiableCredential",
+        "CertifiedDataCredential",
+        "DigitalProductPass"
+    ],
+    "credentialSubject":{
+        "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+        "data": {
+            "nice": "test"
+        }
+
+    }
+}
