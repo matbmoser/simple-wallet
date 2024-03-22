@@ -1,0 +1,6 @@
+{
+    "nice": {
+        "@id": "http://example.com/nice#",
+        "@type": "string"
+      }
+}

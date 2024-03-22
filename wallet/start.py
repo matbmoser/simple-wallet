@@ -115,6 +115,7 @@ def schema():
         g.parse(data=body,format='turtle')
         #output file name and file format here
         response = g.serialize(format='json-ld')
+        response = json.loads(response)
         op.to_json_file(response, "test/schema.json")
         return jsonify(response)
     except Exception as e:

@@ -1,0 +1,13 @@
+2024-03-22 18:28:56 [INFO    ] [werkzeug       ] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:7777
+2024-03-22 18:28:56 [INFO    ] [werkzeug       ] [33mPress CTRL+C to quit[0m
+2024-03-22 18:28:58 [ERROR   ] [staging        ] 'str' object has no attribute 'read'
+Traceback (most recent call last):
+  File "C:\matbmoser\simple-wallet\wallet\start.py", line 118, in schema
+    response= json.load(response)
+              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\json\__init__.py", line 293, in load
+    return loads(fp.read(),
+                 ^^^^^^^
+AttributeError: 'str' object has no attribute 'read'
+2024-03-22 18:28:58 [INFO    ] [werkzeug       ] 127.0.0.1 - - [22/Mar/2024 18:28:58] "POST /schema HTTP/1.1" 200 -
