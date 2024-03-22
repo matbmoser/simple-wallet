@@ -30,7 +30,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/matbmoser/simple-wallet">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="Logo" width="250" height="250">
   </a>
 
 <h3 align="center">Simple Wallet</h3>
