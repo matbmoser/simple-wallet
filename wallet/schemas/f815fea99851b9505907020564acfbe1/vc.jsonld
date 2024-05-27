@@ -1,0 +1,352 @@
+{
+    "id": "https://tx-dpp.int.demo.catena-x.net/provider_backend/data/cx:mfg024:prt-30001",
+    "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://raw.githubusercontent.com/matbmoser/simple-wallet/master/wallet/schemas/digitalProductPass-v5.0.0/vocabulary.jsonld",
+        "https://w3c.github.io/vc-jws-2020/contexts/v1/"
+    ],
+    "type": [
+        "VerifiableCredential",
+        "CDC",
+        "DPP"
+    ],
+    "issuer": "did:web:wallet-url.test.com:BPNL00000007RVTB",
+    "parent": {
+        "@id": "did:web:dpp-test-system.com:BPNL000000000000:api:public:urn%3Auuid%3A1c5b6a7c-90d4-3481-0538-f134ff53076d",
+        "checksum": "64b1a523da600e8fc0018cf57b8f7756b83bb6e9b11c81b1c7444272fab239902321b1b6ae6624d6846fd010616ae98c118f12491f922badd64e58b782c6a115"
+    },
+    "credentialSubject": {
+        "id": "did:web:dpp-test-system.com:BPNL000000000000:api:public:urn%3Auuid%3A6da1f07c-999b-4602-b4d3-8eb649e5d10f",
+        "data": {
+            "metadata": {
+                "backupReference": "https://dummy.link",
+                "registrationIdentifier": "https://dummy.link/ID8283746239078",
+                "economicOperatorId": "BPNL0123456789ZZ",
+                "lastModification": "2000-01-01",
+                "predecessor": "urn:uuid:00000000-0000-0000-0000-000000000000",
+                "issueDate": "2000-01-01",
+                "version": "1.0.0",
+                "passportIdentifier": "urn:uuid:550e8400-e29b-41d4-a716-446655440000",
+                "status": "draft",
+                "expirationDate": "2030-01-01"
+            },
+            "characteristics": {
+                "generalPerformanceClass": "A",
+                "physicalState": "solid",
+                "physicalDimension": {
+                    "volume": {
+                        "value": 20.0,
+                        "unit": "unit:cubicMetre"
+                    },
+                    "grossWeight": {
+                        "value": 20.0,
+                        "unit": "unit:gram"
+                    },
+                    "diameter": {
+                        "value": 20.0,
+                        "unit": "unit:millimetre"
+                    },
+                    "grossVolume": {
+                        "value": 20.0,
+                        "unit": "unit:cubicMetre"
+                    },
+                    "width": {
+                        "value": 20.0,
+                        "unit": "unit:millimetre"
+                    },
+                    "length": {
+                        "value": 20.0,
+                        "unit": "unit:millimetre"
+                    },
+                    "weight": {
+                        "value": 20.0,
+                        "unit": "unit:gram"
+                    },
+                    "height": {
+                        "value": 20.0,
+                        "unit": "unit:millimetre"
+                    }
+                },
+                "lifespan": [
+                    {
+                        "value": 36,
+                        "unit": "unit:day",
+                        "key": "guaranteed lifetime"
+                    }
+                ]
+            },
+            "commercial": {
+                "placedOnMarket": "2000-01-01",
+                "purpose": [
+                    "automotive"
+                ]
+            },
+            "identification": {
+                "batch": [
+                    {
+                        "value": "BID12345678",
+                        "key": "batchId"
+                    }
+                ],
+                "codes": [
+                    {
+                        "value": "8703 24 10 00",
+                        "key": "TARIC"
+                    }
+                ],
+                "type": {
+                    "manufacturerPartId": "123-0.740-3434-A",
+                    "nameAtManufacturer": "Mirror left"
+                },
+                "classification": [
+                    {
+                        "classificationStandard": "GIN 20510-21513",
+                        "classificationID": "1004712",
+                        "classificationDescription": "Generic standard for classification of parts in the automotive industry."
+                    }
+                ],
+                "serial": [
+                    {
+                        "value": "SN12345678",
+                        "key": "partInstanceId"
+                    }
+                ],
+                "dataCarrier": {
+                    "carrierType": "QR",
+                    "carrierLayout": "upper-left side"
+                }
+            },
+            "sources": [
+                {
+                    "header": "Example Document XYZ",
+                    "category": "Product Specifications",
+                    "type": "URL",
+                    "content": "https://dummy.link"
+                }
+            ],
+            "materials": {
+                "substancesOfConcern": {
+                    "applicable": true,
+                    "content": [
+                        {
+                            "unit": "unit:partPerMillion",
+                            "hazardClassification": {
+                                "category": "category 1A",
+                                "statement": "Causes severe skin burns and eye damage.",
+                                "class": "Skin corrosion"
+                            },
+                            "documentation": [
+                                {
+                                    "contentType": "URL",
+                                    "header": "Example Document XYZ",
+                                    "content": "https://dummy.link"
+                                }
+                            ],
+                            "concentrationRange": [
+                                {
+                                    "max": 2.6,
+                                    "min": 2.1
+                                }
+                            ],
+                            "location": "Housing",
+                            "concentration": 5.3,
+                            "exemption": "shall not apply to product x containing not more than 1,5 ml of liquid",
+                            "id": [
+                                {
+                                    "type": "CAS",
+                                    "name": "phenolphthalein",
+                                    "id": "201-004-7"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "materialComposition": {
+                    "applicable": true,
+                    "content": [
+                        {
+                            "unit": "unit:partPerMillion",
+                            "recycled": 12.5,
+                            "critical": true,
+                            "renewable": 23.5,
+                            "documentation": [
+                                {
+                                    "contentType": "URL",
+                                    "header": "Example Document XYZ",
+                                    "content": "https://dummy.link"
+                                }
+                            ],
+                            "concentration": 5.3,
+                            "id": [
+                                {
+                                    "type": "CAS",
+                                    "name": "phenolphthalein",
+                                    "id": "201-004-7"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "handling": {
+                "applicable": true,
+                "content": {
+                    "producer": [
+                        {
+                            "id": "BPNL0123456789ZZ"
+                        }
+                    ],
+                    "sparePart": [
+                        {
+                            "manufacturerPartId": "123-0.740-3434-A",
+                            "nameAtManufacturer": "Mirror left"
+                        }
+                    ]
+                }
+            },
+            "additionalData": [
+                {
+                    "description": "Description of an attribute",
+                    "label": "Maximum permitted battery power",
+                    "type": {
+                        "typeUnit": "unit:volume",
+                        "dataType": "array"
+                    },
+                    "data": "23",
+                    "children": [
+                        {
+                            "description": "Description of an attribute",
+                            "label": "Maximum permitted battery power",
+                            "type": {
+                                "typeUnit": "unit:volume",
+                                "dataType": "array"
+                            },
+                            "data": "23"
+                        }
+                    ]
+                }
+            ],
+            "operation": {
+                "import": {
+                    "applicable": true,
+                    "content": {
+                        "eori": "GB123456789000",
+                        "id": "BPNL0123456789ZZ"
+                    }
+                },
+                "other": {
+                    "id": "BPNL0123456789XX",
+                    "role": "distributor"
+                },
+                "manufacturer": {
+                    "facility": [
+                        {
+                            "facility": "BPNA1234567890AA"
+                        }
+                    ],
+                    "manufacturingDate": "2000-01-31",
+                    "manufacturer": "BPNLbi7tAJ8UiMsF"
+                }
+            },
+            "sustainability": {
+                "reparabilityScore": "B",
+                "productFootprint": {
+                    "material": [
+                        {
+                            "lifecycle": "main product production",
+                            "rulebook": [
+                                {
+                                    "contentType": "URL",
+                                    "header": "Example Document XYZ",
+                                    "content": "https://dummy.link"
+                                }
+                            ],
+                            "unit": "kg CO2 / kWh",
+                            "performanceClass": "A",
+                            "manufacturingPlant": [
+                                {
+                                    "facility": "BPNA1234567890AA"
+                                }
+                            ],
+                            "type": "Climate Change Total",
+                            "value": 12.678,
+                            "declaration": [
+                                {
+                                    "contentType": "URL",
+                                    "header": "Example Document XYZ",
+                                    "content": "https://dummy.link"
+                                }
+                            ]
+                        }
+                    ],
+                    "carbon": [
+                        {
+                            "lifecycle": "main product production",
+                            "rulebook": [
+                                {
+                                    "contentType": "URL",
+                                    "header": "Example Document XYZ",
+                                    "content": "https://dummy.link"
+                                }
+                            ],
+                            "unit": "kg CO2 / kWh",
+                            "performanceClass": "A",
+                            "manufacturingPlant": [
+                                {
+                                    "facility": "BPNA1234567890AA"
+                                }
+                            ],
+                            "type": "Climate Change Total",
+                            "value": 12.678,
+                            "declaration": [
+                                {
+                                    "contentType": "URL",
+                                    "header": "Example Document XYZ",
+                                    "content": "https://dummy.link"
+                                }
+                            ]
+                        }
+                    ],
+                    "environmental": [
+                        {
+                            "lifecycle": "main product production",
+                            "rulebook": [
+                                {
+                                    "contentType": "URL",
+                                    "header": "Example Document XYZ",
+                                    "content": "https://dummy.link"
+                                }
+                            ],
+                            "unit": "kg CO2 / kWh",
+                            "performanceClass": "A",
+                            "manufacturingPlant": [
+                                {
+                                    "facility": "BPNA1234567890AA"
+                                }
+                            ],
+                            "type": "Climate Change Total",
+                            "value": 12.678,
+                            "declaration": [
+                                {
+                                    "contentType": "URL",
+                                    "header": "Example Document XYZ",
+                                    "content": "https://dummy.link"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "status": "original",
+                "durabilityScore": "A"
+            }
+        }
+    },
+    "issuanceDate": "2024-02-15T00:00:00.000Z",
+    "proof": {
+        "type": "JsonWebSignature2020",
+        "created": "2024-02-15T12:35:39Z",
+        "verificationMethod": "did:web:wallet-url.test.com:BPNL00000007RVTB#8f858500-7008-4b97-a8bb-605d4c8eca75",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSJ9..4snTkqta4UwXIAtKJiIEDhiwmVtAC3kml0j7Wc25vmTbLbPlviXgL9he9X0A0xRTNlnsEwILf0NbPIyeztzJCw"
+    }
+}
