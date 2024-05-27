@@ -1,0 +1,11 @@
+2024-05-27 12:34:57 [INFO    ] [werkzeug       ] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:7777
+2024-05-27 12:34:57 [INFO    ] [werkzeug       ] [33mPress CTRL+C to quit[0m
+2024-05-27 12:35:58 [ERROR   ] [staging        ] 'Request' object has no attribute 'body'
+Traceback (most recent call last):
+  File "C:\repositories\matbmoser\simple-wallet\wallet\start.py", line 114, in generic
+    return HttpUtils.response(generator.schema_to_context(request.body))
+                                                          ^^^^^^^^^^^^
+AttributeError: 'Request' object has no attribute 'body'
+2024-05-27 12:35:58 [INFO    ] [werkzeug       ] 127.0.0.1 - - [27/May/2024 12:35:58] "POST /generic HTTP/1.1" 200 -
+2024-05-27 12:36:19 [INFO    ] [werkzeug       ] 127.0.0.1 - - [27/May/2024 12:36:19] "POST /generic HTTP/1.1" 200 -

@@ -1,0 +1,13 @@
+2024-05-27 12:58:25 [INFO    ] [werkzeug       ] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:7777
+2024-05-27 12:58:25 [INFO    ] [werkzeug       ] [33mPress CTRL+C to quit[0m
+2024-05-27 12:58:27 [INFO    ] [werkzeug       ] 127.0.0.1 - - [27/May/2024 12:58:27] "POST /schema HTTP/1.1" 200 -
+2024-05-27 12:58:27 [ERROR   ] [werkzeug       ] Error on request:
+Traceback (most recent call last):
+  File "C:\Python312\Lib\site-packages\werkzeug\serving.py", line 362, in run_wsgi
+    execute(self.server.app)
+  File "C:\Python312\Lib\site-packages\werkzeug\serving.py", line 326, in execute
+    write(data)
+  File "C:\Python312\Lib\site-packages\werkzeug\serving.py", line 294, in write
+    assert isinstance(data, bytes), "applications must write bytes"
+AssertionError: applications must write bytes

@@ -1,0 +1,12 @@
+2024-05-27 13:59:58 [INFO    ] [werkzeug       ] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:7777
+2024-05-27 13:59:58 [INFO    ] [werkzeug       ] [33mPress CTRL+C to quit[0m
+2024-05-27 14:00:01 [ERROR   ] [staging        ] generate_from_schema() missing 1 required positional argument: 'schema_file'
+Traceback (most recent call last):
+  File "C:\repositories\matbmoser\simple-wallet\wallet\start.py", line 117, in html
+    return HttpUtils.response(generator.schema_to_html(body))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\repositories\matbmoser\simple-wallet\wallet\passport\generator.py", line 50, in schema_to_html
+    resolver = generate_from_schema(loaded_schemas=op.to_json(data))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: generate_from_schema() missing 1 required positional argument: 'schema_file'

@@ -1,5 +1,5 @@
 import requests
-
+from flask import jsonify, Response, make_response
 class HttpUtils:
 
     # do post request without session
@@ -31,12 +31,22 @@ class HttpUtils:
                             timeout=timeout,headers=headers,
                             data=data,json=json,
                             allow_redirects=allow_redirects)
+        # do post request with session
+    @staticmethod
+    def response(data, status=200, content_type='application/json'):
+        response = make_response(data, status)
+        response.headers["Content-Type"] = content_type
+        return response
     
     # Generates a error response with message
     @staticmethod
     def get_error_response(status=500,message="It was not possible to process/execute this request!"):
-        return {
-            message: message,
-            status: status
-        }
+        return HttpUtils.response({
+            "message": message,
+            "status": status
+        }, status)
+    
+    @staticmethod
+    def get_body(request):
+        return request.get_json()
    

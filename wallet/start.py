@@ -30,6 +30,7 @@ from utilities.operators import op
 import yaml
 from pyld import jsonld
 import json
+from passport import generator
 
 op.make_dir("logs")
 op.make_dir("test")
@@ -92,12 +93,76 @@ def sign_credential():
     Returns:
         response: :vc: Signed verifiable credential
     """
-    body = request.body
+    body = HttpUtils.get_body(request)
     if(not body):
        return jsonify(HttpUtils.get_error_response())
     
     logger.debug("[] Credential Signed!")
     return jsonify(body)
+
+@app.get("/view/<semanticIdHash>")
+def view(semanticIdHash):
+    """
+    Generates a context for the verifiable credentials
+
+    Receives:
+        vc: :vc: unsigned verifiable credential
+    Returns:
+        response: :vc: schema
+    """
+    try:
+        filePath = f"./schemas/{semanticIdHash}/schema.json"
+        if(not op.path_exists(filePath)):
+           HttpUtils.get_error_response(message="Schema does not exist!", status=404)
+        
+        return HttpUtils.response(generator.schema_file_to_html(file_path=filePath), content_type="text/html")
+    except Exception as e:
+        logger.exception(e)
+        traceback.print_exc()
+
+    return HttpUtils.get_error_response(message="Error when parsing schema!")
+
+@app.post("/html")
+def html():
+    """
+    Generates a context for the verifiable credentials
+
+    Receives:
+        vc: :vc: unsigned verifiable credential
+    Returns:
+        response: :vc: schema
+    """
+    try:
+        body = HttpUtils.get_body(request)
+        if(not body):
+            return jsonify(HttpUtils.get_error_response())
+        return HttpUtils.response(generator.schema_to_html(body))
+    except Exception as e:
+        logger.exception(e)
+        traceback.print_exc()
+
+    return HttpUtils.get_error_response(message="Error when parsing schema!")
+
+@app.post("/context")
+def context():
+    """
+    Generates a context for the verifiable credentials
+
+    Receives:
+        vc: :vc: unsigned verifiable credential
+    Returns:
+        response: :vc: schema
+    """
+    try:
+        body = HttpUtils.get_body(request)
+        if(not body):
+            return jsonify(HttpUtils.get_error_response())
+        return HttpUtils.response(generator.schema_to_context(body))
+    except Exception as e:
+        logger.exception(e)
+        traceback.print_exc()
+
+    return HttpUtils.get_error_response(message="Error when parsing schema!")
 
 @app.post("/schema")
 def schema():
@@ -110,18 +175,15 @@ def schema():
         response: :vc: schema
     """
     try:
-        g = Graph()
-        body = request.data 
-        g.parse(data=body,format='turtle')
-        response = g.serialize(format='json-ld')
-        response = json.loads(response)
-        op.to_json_file(response, "test/schema.json")
-        return jsonify(response)
+        body = HttpUtils.get_body(request)
+        if(not body):
+            return jsonify(HttpUtils.get_error_response())
+        return HttpUtils.response(generator.turtle_to_jsonld(body))
     except Exception as e:
         logger.exception(e)
         traceback.print_exc()
 
-    return jsonify(HttpUtils.get_error_response("No body detected!"))
+    return HttpUtils.get_error_response(message="Error when parsing schema!")
 
 
 if __name__ == '__main__':

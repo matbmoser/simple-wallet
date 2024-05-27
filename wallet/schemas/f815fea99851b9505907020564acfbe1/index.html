@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+    <link rel=stylesheet type=text/css href="https://fonts.googleapis.com/css?family=Overpass:300,400,600,800">
+    <script src=https: //code.jquery.com/jquery-3.4.1.min.js
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin=anonymous></script>
+    <link href=https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css rel=stylesheet
+        integrity=sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T crossorigin=anonymous>
+    <script src=https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js
+        integrity=sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM
+        crossorigin=anonymous></script>
+    <link rel=stylesheet type=text/css href=schema_doc.css>
+    <script src=https://use.fontawesome.com/facf9fa52c.js></script>
+    <script src=schema_doc.min.js></script>
+    <meta charset=utf-8>
+    <title>Schema Docs</title>
+</head>
+
+<body onload=anchorOnLoad(); id=root>
+    <div class=text-right> <button class="btn btn-primary" type=button data-toggle=collapse
+            data-target=.collapse:not(.show) aria-expanded=false>Expand all</button> <button class="btn btn-primary"
+            type=button data-toggle=collapse data-target=.collapse.show aria-expanded=false>Collapse all</button> </div>
+    <div class=breadcrumbs></div><span class="badge badge-dark value-type">Type: object</span><br>
+    <div class="description collapse" id=collapseDescription_root>
+        <p>The Digital Product Passport (DPP) allows to share process and product-related information amongst supply
+            chain businesses, authorities and consumers. The DPP allows for efficient information flows following best
+            practices; and the possibility of accompanying the measures under this Regulation with mitigating measures
+            so that impacts are expected to remain proportionate for SMEs.This is expected to increase transparency,
+            both for supply chain businesses and for the general public, and increase efficiencies in terms of
+            information transfer to support the data exchange between economic actors in integrating circularity in
+            product design and manufacturing.<br> In particular, it is likely to help facilitate and streamline the
+            monitoring and enforcement of the regulation carried out by EU and Member State authorities. It is also
+            likely to provide a market-intelligence tool that may be used for revising and refining obligations in the
+            future.<br> The DPP includes data about components, materials and chemical substances, information on
+            reparability, spare parts, environmental impact and professional disposal for a product.<br> The data model
+            will be updated, as newer versions of the regulation will be published.<br> The main basis is provided by
+            the document &#34;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL establishing a
+            framework for setting ecodesign requirements for sustainable products and repealing Directive
+            2009/125/EC&#34; from March 30th, 2022. The latest version of the document was the provisional agreement
+            between the EU Council and the Parliament from January 9th, 2024. The text is informal, but the content of
+            the final regulation was agreed between these two institutions.<br> The Title of Ecodesign Regulation has
+            been changed to: Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL establishing a
+            framework for setting ecodesign requirements for sustainable products, amending Regulation (EU) 2023/1542
+            and repealing Directive 2009/125/EC.</p>
+    </div>
+    <div> <a class="collapse-description-link collapsed" data-toggle=collapse href=#collapseDescription_root
+            aria-expanded=false aria-controls=collapseDescriptionroot></a> </div>
+    <div class=accordion id=accordionmetadata>
+        <div class=card>
+            <div class=card-header id=headingmetadata>
+                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button data-toggle=collapse
+                        data-target=#metadata aria-expanded aria-controls=metadata
+                        onclick="setAnchor('#metadata')"><span class=property-name>metadata</span> <span
+                            class="badge badge-warning required-property">Required</span></button> </h2>
+            </div>
+            <div id=metadata class="collapse property-definition-div" aria-labelledby=headingmetadata
+                data-parent=#accordionmetadata>
+                <div class="card-body pl-5">
+                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                            class="bi bi-arrow-right-short" fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                            <path fill-rule=evenodd
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                        </svg> <a href=#metadata onclick="anchorLink('metadata')">metadata</a></div><span
+                        class="badge badge-dark value-type">Type: object</span><br> <span class=description>
+                        <p>Metadata of the product passport. These are mentioned in the ESPR proposal from March 30th,
+                            2022 and some changed by the provisional agreement from January 9th, 2024.</p>
+                    </span>
+                    <div class=accordion id=accordionmetadata_version>
+                        <div class=card>
+                            <div class=card-header id=headingmetadata_version>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#metadata_version aria-expanded
+                                        aria-controls=metadata_version onclick="setAnchor('#metadata_version')"><span
+                                            class=property-name>version</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=metadata_version class="collapse property-definition-div"
+                                aria-labelledby=headingmetadata_version data-parent=#accordionmetadata_version>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata onclick="anchorLink('metadata')">metadata</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata_version
+                                            onclick="anchorLink('metadata_version')">version</a></div><span
+                                        class="badge badge-dark value-type">Type: string</span><br> <span
+                                        class=description>
+                                        <p>The current version of the product passport. The possibility of modification/
+                                            updating the product passport needs to include versioning of the dataset.
+                                            This attribute is an internal versioning from the passport issuer. This
+                                            attribute is mentioned in the ESPR provisional agreement from January 9th,
+                                            2024 Article 8:<br> (1) [...] The information in the product passport shall
+                                            be accurate, complete, and up to date.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_version
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_version')"
+                                        class=ref-link>Same definition as version</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionmetadata_status>
+                        <div class=card>
+                            <div class=card-header id=headingmetadata_status>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#metadata_status aria-expanded
+                                        aria-controls=metadata_status onclick="setAnchor('#metadata_status')"><span
+                                            class=property-name>status</span></button> </h2>
+                            </div>
+                            <div id=metadata_status class="collapse property-definition-div"
+                                aria-labelledby=headingmetadata_status data-parent=#accordionmetadata_status>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata onclick="anchorLink('metadata')">metadata</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata_status
+                                            onclick="anchorLink('metadata_status')">status</a></div><span
+                                        class="badge badge-dark value-type">Type: enum (of string)</span><br> <span
+                                        class=description>
+                                        <p>The current status of the product passport declared through either: draft,
+                                            approved, invalid or expired.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_status
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_status')"
+                                        class=ref-link>Same definition as status</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionmetadata_expirationDate>
+                        <div class=card>
+                            <div class=card-header id=headingmetadata_expirationDate>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#metadata_expirationDate aria-expanded
+                                        aria-controls=metadata_expirationDate
+                                        onclick="setAnchor('#metadata_expirationDate')"><span
+                                            class=property-name>expirationDate</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=metadata_expirationDate class="collapse property-definition-div"
+                                aria-labelledby=headingmetadata_expirationDate
+                                data-parent=#accordionmetadata_expirationDate>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata onclick="anchorLink('metadata')">metadata</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata_expirationDate
+                                            onclick="anchorLink('metadata_expirationDate')">expirationDate</a></div>
+                                    <span class="badge badge-dark value-type">Type: string</span><br> <span
+                                        class=description>
+                                        <p>The timestamp in the format (yyyy-mm-dd) for the product passport until when
+                                            it is available or a comment describing this period. This attribute is
+                                            mentioned in the ESPR provisional agreement from January 9th, 2024 Article
+                                            8:<br> (2) (h) the period during which the product passport is to remain
+                                            available, which shall correspond to at least the expected lifetime of a
+                                            specific product.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_expirationDate
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_expirationDate')"
+                                        class=ref-link>Same definition as expirationDate</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionmetadata_issueDate>
+                        <div class=card>
+                            <div class=card-header id=headingmetadata_issueDate>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#metadata_issueDate aria-expanded
+                                        aria-controls=metadata_issueDate
+                                        onclick="setAnchor('#metadata_issueDate')"><span
+                                            class=property-name>issueDate</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=metadata_issueDate class="collapse property-definition-div"
+                                aria-labelledby=headingmetadata_issueDate data-parent=#accordionmetadata_issueDate>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata onclick="anchorLink('metadata')">metadata</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata_issueDate
+                                            onclick="anchorLink('metadata_issueDate')">issueDate</a></div><span
+                                        class="badge badge-dark value-type">Type: string</span><br> <span
+                                        class=description>
+                                        <p>The timestamp in the format (yyyy-mm-dd) since when the product passport is
+                                            available.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_expirationDate
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_expirationDate')"
+                                        class=ref-link>Same definition as expirationDate</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionmetadata_economicOperatorId>
+                        <div class=card>
+                            <div class=card-header id=headingmetadata_economicOperatorId>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#metadata_economicOperatorId aria-expanded
+                                        aria-controls=metadata_economicOperatorId
+                                        onclick="setAnchor('#metadata_economicOperatorId')"><span
+                                            class=property-name>economicOperatorId</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=metadata_economicOperatorId class="collapse property-definition-div"
+                                aria-labelledby=headingmetadata_economicOperatorId
+                                data-parent=#accordionmetadata_economicOperatorId>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata onclick="anchorLink('metadata')">metadata</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata_economicOperatorId
+                                            onclick="anchorLink('metadata_economicOperatorId')">economicOperatorId</a>
+                                    </div><span class="badge badge-dark value-type">Type: string</span><br>
+                                    <div class="description collapse"
+                                        id=collapseDescription_metadata_economicOperatorId>
+                                        <p>The identification of the owner/economic operator of the passport. Proposed,
+                                            according to ISO 15459, is the CIN (company identification code). Other
+                                            identification numbers like the tax identification number, value added tax
+                                            identification number, commercial register number and the like are also
+                                            valid entries. In the Catena-X network, the BPNL is used for the
+                                            identification of companies and the information stored like contact
+                                            information and addresses. This attribute is mentioned in the ESPR proposal
+                                            from March 30th, 2022 Annex III:<br> (k) the [...] unique operator
+                                            identifier code of the economic operator established in the Union
+                                            responsible for carrying out the tasks set out in Article 4 of Regulation
+                                            (EU) 2019/1020, or Article 15 of Regulation (EU) on general product safety,
+                                            or similar tasks pursuant to other EU legislation applicable to the product.
+                                        </p>
+                                    </div>
+                                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                                            href=#collapseDescription_metadata_economicOperatorId aria-expanded=false
+                                            aria-controls=collapseDescriptionmetadata_economicOperatorId></a> </div><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_economicOperatorId
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_economicOperatorId')"
+                                        class=ref-link>Same definition as economicOperatorId</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionmetadata_passportIdentifier>
+                        <div class=card>
+                            <div class=card-header id=headingmetadata_passportIdentifier>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#metadata_passportIdentifier aria-expanded
+                                        aria-controls=metadata_passportIdentifier
+                                        onclick="setAnchor('#metadata_passportIdentifier')"><span
+                                            class=property-name>passportIdentifier</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=metadata_passportIdentifier class="collapse property-definition-div"
+                                aria-labelledby=headingmetadata_passportIdentifier
+                                data-parent=#accordionmetadata_passportIdentifier>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata onclick="anchorLink('metadata')">metadata</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata_passportIdentifier
+                                            onclick="anchorLink('metadata_passportIdentifier')">passportIdentifier</a>
+                                    </div><span class="badge badge-dark value-type">Type: string</span><br> <span
+                                        class=description>
+                                        <p>The identifier of the product passport, which is an uuidv4.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_passportIdentifier
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_passportIdentifier')"
+                                        class=ref-link>Same definition as passportIdentifier</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionmetadata_predecessor>
+                        <div class=card>
+                            <div class=card-header id=headingmetadata_predecessor>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#metadata_predecessor aria-expanded
+                                        aria-controls=metadata_predecessor
+                                        onclick="setAnchor('#metadata_predecessor')"><span
+                                            class=property-name>predecessor</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=metadata_predecessor class="collapse property-definition-div"
+                                aria-labelledby=headingmetadata_predecessor data-parent=#accordionmetadata_predecessor>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata onclick="anchorLink('metadata')">metadata</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata_predecessor
+                                            onclick="anchorLink('metadata_predecessor')">predecessor</a></div><span
+                                        class="badge badge-dark value-type">Type: string</span><br> <span
+                                        class=description>
+                                        <p>Identification of the preceding product passport. If there is no preceding
+                                            passport, input a dummy value. This attribute is mentioned in the ESPR
+                                            provisional agreement from January 9th, 2024 Article 8:<br> (2)(g) [...] Any
+                                            new product passport shall be linked to the product passport or passports of
+                                            the original product whenever appropriate.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_passportIdentifier
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_passportIdentifier')"
+                                        class=ref-link>Same definition as passportIdentifier</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionmetadata_backupReference>
+                        <div class=card>
+                            <div class=card-header id=headingmetadata_backupReference>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#metadata_backupReference aria-expanded
+                                        aria-controls=metadata_backupReference
+                                        onclick="setAnchor('#metadata_backupReference')"><span
+                                            class=property-name>backupReference</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=metadata_backupReference class="collapse property-definition-div"
+                                aria-labelledby=headingmetadata_backupReference
+                                data-parent=#accordionmetadata_backupReference>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata onclick="anchorLink('metadata')">metadata</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata_backupReference
+                                            onclick="anchorLink('metadata_backupReference')">backupReference</a></div>
+                                    <span class="badge badge-dark value-type">Type: string</span><br>
+                                    <div class="description collapse" id=collapseDescription_metadata_backupReference>
+                                        <p>A reference to the data backup of the passport. This mandatory attribute will
+                                            be further defined in the future. This attribute is mentioned in the ESPR
+                                            provisional agreement from January 9th, 2024 Annex III:<br> (kb) the
+                                            reference of the certified independent third-party product passport service
+                                            provider hosting the back-up copy of the product passport.<br> Article 10
+                                            also mentions:<br> (c) the data included in the product passport shall be
+                                            stored by the economic operator responsible for its creation or by certified
+                                            independent third-party product passport service providers authorised to act
+                                            on their behalf.</p>
+                                    </div>
+                                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                                            href=#collapseDescription_metadata_backupReference aria-expanded=false
+                                            aria-controls=collapseDescriptionmetadata_backupReference></a> </div><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_version
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_version')"
+                                        class=ref-link>Same definition as version</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionmetadata_registrationIdentifier>
+                        <div class=card>
+                            <div class=card-header id=headingmetadata_registrationIdentifier>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#metadata_registrationIdentifier aria-expanded
+                                        aria-controls=metadata_registrationIdentifier
+                                        onclick="setAnchor('#metadata_registrationIdentifier')"><span
+                                            class=property-name>registrationIdentifier</span></button> </h2>
+                            </div>
+                            <div id=metadata_registrationIdentifier class="collapse property-definition-div"
+                                aria-labelledby=headingmetadata_registrationIdentifier
+                                data-parent=#accordionmetadata_registrationIdentifier>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata onclick="anchorLink('metadata')">metadata</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata_registrationIdentifier
+                                            onclick="anchorLink('metadata_registrationIdentifier')">registrationIdentifier</a>
+                                    </div><span class="badge badge-dark value-type">Type: string</span><br>
+                                    <div class="description collapse"
+                                        id=collapseDescription_metadata_registrationIdentifier>
+                                        <p>Identifier in the respective registry. This will be further defined in the
+                                            future. This attribute is mentioned in the ESPR provisional agreement from
+                                            January 9th, 2024 in Article 12:<br> By [2 years from entering into force of
+                                            this Regulation], the Commission shall set up and manage a digital registry
+                                            (&#34;the registry&#34;) storing in a secure manner at least the unique
+                                            product identifier, the unique operator identifier, the unique facility
+                                            identifiers. In case of products intended to be placed under the customs
+                                            procedure &#39;release for free circulation&#39;, the registry shall also
+                                            store the product commodity code. The registry shall also store the
+                                            batteries&#39; unique identifiers referred to in Article 77(3) of Regulation
+                                            (EU) 2023/1542.</p>
+                                    </div>
+                                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                                            href=#collapseDescription_metadata_registrationIdentifier
+                                            aria-expanded=false
+                                            aria-controls=collapseDescriptionmetadata_registrationIdentifier></a> </div>
+                                    <a href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_registrationIdentifier
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_registrationIdentifier')"
+                                        class=ref-link>Same definition as registrationIdentifier</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionmetadata_lastModification>
+                        <div class=card>
+                            <div class=card-header id=headingmetadata_lastModification>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#metadata_lastModification aria-expanded
+                                        aria-controls=metadata_lastModification
+                                        onclick="setAnchor('#metadata_lastModification')"><span
+                                            class=property-name>lastModification</span></button> </h2>
+                            </div>
+                            <div id=metadata_lastModification class="collapse property-definition-div"
+                                aria-labelledby=headingmetadata_lastModification
+                                data-parent=#accordionmetadata_lastModification>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata onclick="anchorLink('metadata')">metadata</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#metadata_lastModification
+                                            onclick="anchorLink('metadata_lastModification')">lastModification</a></div>
+                                    <span class="badge badge-dark value-type">Type: string</span><br> <span
+                                        class=description>
+                                        <p>Date of the latest modification.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_expirationDate
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_expirationDate')"
+                                        class=ref-link>Same definition as expirationDate</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=accordion id=accordionidentification>
+        <div class=card>
+            <div class=card-header id=headingidentification>
+                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button data-toggle=collapse
+                        data-target=#identification aria-expanded aria-controls=identification
+                        onclick="setAnchor('#identification')"><span class=property-name>identification</span> <span
+                            class="badge badge-warning required-property">Required</span></button> </h2>
+            </div>
+            <div id=identification class="collapse property-definition-div" aria-labelledby=headingidentification
+                data-parent=#accordionidentification>
+                <div class="card-body pl-5">
+                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                            class="bi bi-arrow-right-short" fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                            <path fill-rule=evenodd
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                        </svg> <a href=#identification onclick="anchorLink('identification')">identification</a></div>
+                    <span class="badge badge-dark value-type">Type: object</span><br>
+                    <div class="description collapse" id=collapseDescription_identification>
+                        <p>Identification information of the product, especially identifiers and codes. These are
+                            mentioned in the ESPR provisional agreement from January 9th, 2024 ANNEX III:<br> (b) the
+                            unique product identifier at the level indicated in the applicable delegated act adopted
+                            pursuant to Article 4.<br> Additionally in Article 9 regarding general requirements for the
+                            product passport is stated that:<br> A product passport shall meet the following
+                            conditions:<br> (a) it shall be connected through a data carrier to a persistent unique
+                            product identifier;<br> (e) the information included in the product passport shall refer to
+                            the product model, batch, or item as specified in the delegated act adopted pursuant to
+                            Article 4.<br> Article 2 Definitions:<br> (31) &#39;unique product identifier&#39; means a
+                            unique string of characters for the identification of products that also enables a web link
+                            to the product passport;<br> Recital (27): A &#39;model&#39; usually means a version of a
+                            product of which all units share the same technical characteristics relevant for the
+                            ecodesign requirements and the same model identifier, a &#39;batch&#39; usually means a
+                            subset of a specific model composed of all products produced in a specific manufacturing
+                            plant at a specific moment in time and an &#39;item&#39; usually means a single unit of a
+                            model.</p>
+                    </div>
+                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                            href=#collapseDescription_identification aria-expanded=false
+                            aria-controls=collapseDescriptionidentification></a> </div>
+                    <div class=accordion id=accordionidentification_serial>
+                        <div class=card>
+                            <div class=card-header id=headingidentification_serial>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#identification_serial aria-expanded
+                                        aria-controls=identification_serial
+                                        onclick="setAnchor('#identification_serial')"><span
+                                            class=property-name>serial</span></button> </h2>
+                            </div>
+                            <div id=identification_serial class="collapse property-definition-div"
+                                aria-labelledby=headingidentification_serial
+                                data-parent=#accordionidentification_serial>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification
+                                            onclick="anchorLink('identification')">identification</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification_serial
+                                            onclick="anchorLink('identification_serial')">serial</a></div><span
+                                        class="badge badge-dark value-type">Type: array</span><br> <span
+                                        class=description>
+                                        <p>Identifier for a serial part if available. This is mentioned in the ESPR
+                                            provisional agreement from January 9th, 2024 Recital (27):<br> [...] an
+                                            &#39;item&#39; usually means a single unit of a model.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_serial
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_serial')"
+                                        class=ref-link>Same definition as serial</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionidentification_batch>
+                        <div class=card>
+                            <div class=card-header id=headingidentification_batch>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#identification_batch aria-expanded
+                                        aria-controls=identification_batch
+                                        onclick="setAnchor('#identification_batch')"><span
+                                            class=property-name>batch</span></button> </h2>
+                            </div>
+                            <div id=identification_batch class="collapse property-definition-div"
+                                aria-labelledby=headingidentification_batch data-parent=#accordionidentification_batch>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification
+                                            onclick="anchorLink('identification')">identification</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification_batch
+                                            onclick="anchorLink('identification_batch')">batch</a></div><span
+                                        class="badge badge-dark value-type">Type: array</span><br> <span
+                                        class=description>
+                                        <p>Identifier for a batch part if available. Identifier for a serial part if
+                                            available. This is mentioned in the ESPR provisional agreement from January
+                                            9th, 2024 Recital (27):<br> [...] a &#39;batch&#39; usually means a subset
+                                            of a specific model composed of all products produced in a specific
+                                            manufacturing plant at a specific moment in time [...].</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_batch
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_batch')"
+                                        class=ref-link>Same definition as batch</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionidentification_type>
+                        <div class=card>
+                            <div class=card-header id=headingidentification_type>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#identification_type aria-expanded
+                                        aria-controls=identification_type
+                                        onclick="setAnchor('#identification_type')"><span
+                                            class=property-name>type</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=identification_type class="collapse property-definition-div"
+                                aria-labelledby=headingidentification_type data-parent=#accordionidentification_type>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification
+                                            onclick="anchorLink('identification')">identification</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification_type
+                                            onclick="anchorLink('identification_type')">type</a></div><span
+                                        class="badge badge-dark value-type">Type: object</span><br> <span
+                                        class=description>
+                                        <p>Identifier on the level of a part model or type. Identifier for a serial part
+                                            if available. This is mentioned in the ESPR provisional agreement from
+                                            January 9th, 2024 Recital (27):<br> [...] A &#39;model&#39; usually means a
+                                            version of a product of which all units share the same technical
+                                            characteristics relevant for the ecodesign requirements and the same model
+                                            identifier [...].</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_type
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_type')"
+                                        class=ref-link>Same definition as type</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionidentification_codes>
+                        <div class=card>
+                            <div class=card-header id=headingidentification_codes>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#identification_codes aria-expanded
+                                        aria-controls=identification_codes
+                                        onclick="setAnchor('#identification_codes')"><span
+                                            class=property-name>codes</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=identification_codes class="collapse property-definition-div"
+                                aria-labelledby=headingidentification_codes data-parent=#accordionidentification_codes>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification
+                                            onclick="anchorLink('identification')">identification</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification_codes
+                                            onclick="anchorLink('identification_codes')">codes</a></div><span
+                                        class="badge badge-dark value-type">Type: array</span><br> <span
+                                        class=description>
+                                        <p>Codes for identification.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_codes
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_codes')"
+                                        class=ref-link>Same definition as codes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionidentification_dataCarrier>
+                        <div class=card>
+                            <div class=card-header id=headingidentification_dataCarrier>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#identification_dataCarrier aria-expanded
+                                        aria-controls=identification_dataCarrier
+                                        onclick="setAnchor('#identification_dataCarrier')"><span
+                                            class=property-name>dataCarrier</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=identification_dataCarrier class="collapse property-definition-div"
+                                aria-labelledby=headingidentification_dataCarrier
+                                data-parent=#accordionidentification_dataCarrier>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification
+                                            onclick="anchorLink('identification')">identification</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification_dataCarrier
+                                            onclick="anchorLink('identification_dataCarrier')">dataCarrier</a></div>
+                                    <span class="badge badge-dark value-type">Type: object</span><br>
+                                    <div class="description collapse" id=collapseDescription_identification_dataCarrier>
+                                        <p>The type and layout of the data carrier on the product. These are mentioned
+                                            in the ESPR proposal from March 30th, 2022 Article 8:<br> (b) the types of
+                                            data carrier to be used;<br> (c) the layout in which the data carrier shall
+                                            be presented and its positioning;<br> Article 2 defines:<br> (30) &#39;data
+                                            carrier&#39; means a linear bar code symbol, a two-dimensional symbol or
+                                            other automatic identification data capture medium that can be read by a
+                                            device.</p>
+                                    </div>
+                                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                                            href=#collapseDescription_identification_dataCarrier aria-expanded=false
+                                            aria-controls=collapseDescriptionidentification_dataCarrier></a> </div><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_dataCarrier
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_dataCarrier')"
+                                        class=ref-link>Same definition as dataCarrier</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionidentification_classification>
+                        <div class=card>
+                            <div class=card-header id=headingidentification_classification>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#identification_classification aria-expanded
+                                        aria-controls=identification_classification
+                                        onclick="setAnchor('#identification_classification')"><span
+                                            class=property-name>classification</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=identification_classification class="collapse property-definition-div"
+                                aria-labelledby=headingidentification_classification
+                                data-parent=#accordionidentification_classification>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification
+                                            onclick="anchorLink('identification')">identification</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#identification_classification
+                                            onclick="anchorLink('identification_classification')">classification</a>
+                                    </div><span class="badge badge-dark value-type">Type: array</span><br> <span
+                                        class=description>
+                                        <p>Property describing the classification of a part.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_classification
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_IdentificationCharacteristic_classification')"
+                                        class=ref-link>Same definition as classification</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=accordion id=accordionoperation>
+        <div class=card>
+            <div class=card-header id=headingoperation>
+                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button data-toggle=collapse
+                        data-target=#operation aria-expanded aria-controls=operation
+                        onclick="setAnchor('#operation')"><span class=property-name>operation</span> <span
+                            class="badge badge-warning required-property">Required</span></button> </h2>
+            </div>
+            <div id=operation class="collapse property-definition-div" aria-labelledby=headingoperation
+                data-parent=#accordionoperation>
+                <div class="card-body pl-5">
+                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                            class="bi bi-arrow-right-short" fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                            <path fill-rule=evenodd
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                        </svg> <a href=#operation onclick="anchorLink('operation')">operation</a></div><span
+                        class="badge badge-dark value-type">Type: object</span><br> <span class=description>
+                        <p>Operational information of the product.</p>
+                    </span>
+                    <div class=accordion id=accordionoperation_manufacturer>
+                        <div class=card>
+                            <div class=card-header id=headingoperation_manufacturer>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#operation_manufacturer aria-expanded
+                                        aria-controls=operation_manufacturer
+                                        onclick="setAnchor('#operation_manufacturer')"><span
+                                            class=property-name>manufacturer</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=operation_manufacturer class="collapse property-definition-div"
+                                aria-labelledby=headingoperation_manufacturer
+                                data-parent=#accordionoperation_manufacturer>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#operation onclick="anchorLink('operation')">operation</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#operation_manufacturer
+                                            onclick="anchorLink('operation_manufacturer')">manufacturer</a></div><span
+                                        class="badge badge-dark value-type">Type: object</span><br>
+                                    <div class="description collapse" id=collapseDescription_operation_manufacturer>
+                                        <p>Manufacturing information of the product. In the CATENA-X use case, the BPNL
+                                            and BPNA can be stated. These attributes are mentioned in the ESPR
+                                            provisional agreement from January 9th 2024 Annex III:<br> (h) unique
+                                            operator identifiers other than that of the manufacturer;<br> (k) the name,
+                                            contact details and unique operator identifier code of the economic operator
+                                            established in the Union responsible for carrying out the tasks set out in
+                                            Article 4 of Regulation (EU) 2019/1020, or Article 15 of Regulation (EU)
+                                            [.../...] on general product safety, or similar tasks pursuant to other EU
+                                            legislation applicable to the product.</p>
+                                    </div>
+                                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                                            href=#collapseDescription_operation_manufacturer aria-expanded=false
+                                            aria-controls=collapseDescriptionoperation_manufacturer></a> </div><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_OperationCharacteristic_manufacturer
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_OperationCharacteristic_manufacturer')"
+                                        class=ref-link>Same definition as manufacturer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionoperation_import>
+                        <div class=card>
+                            <div class=card-header id=headingoperation_import>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#operation_import aria-expanded
+                                        aria-controls=operation_import onclick="setAnchor('#operation_import')"><span
+                                            class=property-name>import</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=operation_import class="collapse property-definition-div"
+                                aria-labelledby=headingoperation_import data-parent=#accordionoperation_import>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#operation onclick="anchorLink('operation')">operation</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#operation_import
+                                            onclick="anchorLink('operation_import')">import</a></div><span
+                                        class="badge badge-dark value-type">Type: object</span><br> <span
+                                        class=description>
+                                        <p>Importer details such as the identification.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_OperationCharacteristic_import
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_OperationCharacteristic_import')"
+                                        class=ref-link>Same definition as import</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionoperation_other>
+                        <div class=card>
+                            <div class=card-header id=headingoperation_other>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#operation_other aria-expanded
+                                        aria-controls=operation_other onclick="setAnchor('#operation_other')"><span
+                                            class=property-name>other</span></button> </h2>
+                            </div>
+                            <div id=operation_other class="collapse property-definition-div"
+                                aria-labelledby=headingoperation_other data-parent=#accordionoperation_other>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#operation onclick="anchorLink('operation')">operation</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#operation_other
+                                            onclick="anchorLink('operation_other')">other</a></div><span
+                                        class="badge badge-dark value-type">Type: object</span><br> <span
+                                        class=description>
+                                        <p>Other operators relevant for the product.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_OperationCharacteristic_other
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_OperationCharacteristic_other')"
+                                        class=ref-link>Same definition as other</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=accordion id=accordionhandling>
+        <div class=card>
+            <div class=card-header id=headinghandling>
+                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button data-toggle=collapse
+                        data-target=#handling aria-expanded aria-controls=handling
+                        onclick="setAnchor('#handling')"><span class=property-name>handling</span> <span
+                            class="badge badge-warning required-property">Required</span></button> </h2>
+            </div>
+            <div id=handling class="collapse property-definition-div" aria-labelledby=headinghandling
+                data-parent=#accordionhandling>
+                <div class="card-body pl-5">
+                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                            class="bi bi-arrow-right-short" fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                            <path fill-rule=evenodd
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                        </svg> <a href=#handling onclick="anchorLink('handling')">handling</a></div><span
+                        class="badge badge-dark value-type">Type: object</span><br> <span class=description>
+                        <p>Properties connected with the handling of the product.</p>
+                    </span>
+                    <div class=accordion id=accordionhandling_content>
+                        <div class=card>
+                            <div class=card-header id=headinghandling_content>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#handling_content aria-expanded
+                                        aria-controls=handling_content onclick="setAnchor('#handling_content')"><span
+                                            class=property-name>content</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=handling_content class="collapse property-definition-div"
+                                aria-labelledby=headinghandling_content data-parent=#accordionhandling_content>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#handling onclick="anchorLink('handling')">handling</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#handling_content
+                                            onclick="anchorLink('handling_content')">content</a></div><span
+                                        class="badge badge-dark value-type">Type: object</span><br> <span
+                                        class=description>
+                                        <p>The list of spare parts available for the product from various suppliers.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_HandlingCharacteristic_content
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_HandlingCharacteristic_content')"
+                                        class=ref-link>Same definition as content</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionhandling_applicable>
+                        <div class=card>
+                            <div class=card-header id=headinghandling_applicable>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#handling_applicable aria-expanded
+                                        aria-controls=handling_applicable
+                                        onclick="setAnchor('#handling_applicable')"><span
+                                            class=property-name>applicable</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=handling_applicable class="collapse property-definition-div"
+                                aria-labelledby=headinghandling_applicable data-parent=#accordionhandling_applicable>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#handling onclick="anchorLink('handling')">handling</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#handling_applicable
+                                            onclick="anchorLink('handling_applicable')">applicable</a></div><span
+                                        class="badge badge-dark value-type">Type: boolean</span><br> <span
+                                        class=description>
+                                        <p>Check whether the connected attributes are applicable to the product. If it
+                                            is not applicable (false), dummy data can be delivered.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_ImportCharacteristic_applicable
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_ImportCharacteristic_applicable')"
+                                        class=ref-link>Same definition as applicable</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=accordion id=accordioncharacteristics>
+        <div class=card>
+            <div class=card-header id=headingcharacteristics>
+                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button data-toggle=collapse
+                        data-target=#characteristics aria-expanded aria-controls=characteristics
+                        onclick="setAnchor('#characteristics')"><span class=property-name>characteristics</span> <span
+                            class="badge badge-warning required-property">Required</span></button> </h2>
+            </div>
+            <div id=characteristics class="collapse property-definition-div" aria-labelledby=headingcharacteristics
+                data-parent=#accordioncharacteristics>
+                <div class="card-body pl-5">
+                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                            class="bi bi-arrow-right-short" fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                            <path fill-rule=evenodd
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                        </svg> <a href=#characteristics onclick="anchorLink('characteristics')">characteristics</a>
+                    </div><span class="badge badge-dark value-type">Type: object</span><br> <span class=description>
+                        <p>Defines specific characteristics of a product.</p>
+                    </span>
+                    <div class=accordion id=accordioncharacteristics_lifespan>
+                        <div class=card>
+                            <div class=card-header id=headingcharacteristics_lifespan>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#characteristics_lifespan aria-expanded
+                                        aria-controls=characteristics_lifespan
+                                        onclick="setAnchor('#characteristics_lifespan')"><span
+                                            class=property-name>lifespan</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=characteristics_lifespan class="collapse property-definition-div"
+                                aria-labelledby=headingcharacteristics_lifespan
+                                data-parent=#accordioncharacteristics_lifespan>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#characteristics
+                                            onclick="anchorLink('characteristics')">characteristics</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#characteristics_lifespan
+                                            onclick="anchorLink('characteristics_lifespan')">lifespan</a></div><span
+                                        class="badge badge-dark value-type">Type: array</span><br>
+                                    <div class="description collapse" id=collapseDescription_characteristics_lifespan>
+                                        <p>The type of lifespan represented with the values guaranteed lifetime,
+                                            technical lifetime and mean time between failures. Both can be described
+                                            through the attributes: type, which defines the type such as guaranteed
+                                            lifetime or technical lifetime, the unit for the lifetime, and the value
+                                            represented by an integer. These attributes are mentioned in the ESPR
+                                            proposal from March 30th, 2022 ANNEX I:<br> (a) durability and reliability
+                                            of the product or its components as expressed through the products
+                                            guaranteed lifetime, technical lifetime [or] mean time between failures
+                                            [...].</p>
+                                    </div>
+                                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                                            href=#collapseDescription_characteristics_lifespan aria-expanded=false
+                                            aria-controls=collapseDescriptioncharacteristics_lifespan></a> </div><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_ProductCharacteristics_lifespan
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_ProductCharacteristics_lifespan')"
+                                        class=ref-link>Same definition as lifespan</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordioncharacteristics_physicalDimension>
+                        <div class=card>
+                            <div class=card-header id=headingcharacteristics_physicalDimension>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#characteristics_physicalDimension
+                                        aria-expanded aria-controls=characteristics_physicalDimension
+                                        onclick="setAnchor('#characteristics_physicalDimension')"><span
+                                            class=property-name>physicalDimension</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=characteristics_physicalDimension class="collapse property-definition-div"
+                                aria-labelledby=headingcharacteristics_physicalDimension
+                                data-parent=#accordioncharacteristics_physicalDimension>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#characteristics
+                                            onclick="anchorLink('characteristics')">characteristics</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#characteristics_physicalDimension
+                                            onclick="anchorLink('characteristics_physicalDimension')">physicalDimension</a>
+                                    </div><span class="badge badge-dark value-type">Type: object</span><br>
+                                    <div class="description collapse"
+                                        id=collapseDescription_characteristics_physicalDimension>
+                                        <p>Physical dimensions are properties associated with physical quantities for
+                                            purposes of classification or differentiation. These attributes are
+                                            mentioned in the ESPR provisional agreement from January 9th, Article 7:<br>
+                                            (2) (b) (i) information on the performance of the product in relation to one
+                                            or more of the product parameters referred to in Annex I;<br> Annex I (i)
+                                            weight and volume of the product and its packaging, and the
+                                            product-to-packaging ratio.</p>
+                                    </div>
+                                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                                            href=#collapseDescription_characteristics_physicalDimension
+                                            aria-expanded=false
+                                            aria-controls=collapseDescriptioncharacteristics_physicalDimension></a>
+                                    </div><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_ProductCharacteristics_physicalDimension
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_ProductCharacteristics_physicalDimension')"
+                                        class=ref-link>Same definition as physicalDimension</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordioncharacteristics_physicalState>
+                        <div class=card>
+                            <div class=card-header id=headingcharacteristics_physicalState>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#characteristics_physicalState aria-expanded
+                                        aria-controls=characteristics_physicalState
+                                        onclick="setAnchor('#characteristics_physicalState')"><span
+                                            class=property-name>physicalState</span></button> </h2>
+                            </div>
+                            <div id=characteristics_physicalState class="collapse property-definition-div"
+                                aria-labelledby=headingcharacteristics_physicalState
+                                data-parent=#accordioncharacteristics_physicalState>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#characteristics
+                                            onclick="anchorLink('characteristics')">characteristics</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#characteristics_physicalState
+                                            onclick="anchorLink('characteristics_physicalState')">physicalState</a>
+                                    </div><span class="badge badge-dark value-type">Type: enum (of string)</span><br>
+                                    <span class=description>
+                                        <p>The physical state of the item. There are four states of matter solid,
+                                            liquid, gas and plasma which can be chosen from an enumeration.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_ProductCharacteristics_physicalState
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_ProductCharacteristics_physicalState')"
+                                        class=ref-link>Same definition as physicalState</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordioncharacteristics_generalPerformanceClass>
+                        <div class=card>
+                            <div class=card-header id=headingcharacteristics_generalPerformanceClass>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#characteristics_generalPerformanceClass
+                                        aria-expanded aria-controls=characteristics_generalPerformanceClass
+                                        onclick="setAnchor('#characteristics_generalPerformanceClass')"><span
+                                            class=property-name>generalPerformanceClass</span></button> </h2>
+                            </div>
+                            <div id=characteristics_generalPerformanceClass class="collapse property-definition-div"
+                                aria-labelledby=headingcharacteristics_generalPerformanceClass
+                                data-parent=#accordioncharacteristics_generalPerformanceClass>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#characteristics
+                                            onclick="anchorLink('characteristics')">characteristics</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#characteristics_generalPerformanceClass
+                                            onclick="anchorLink('characteristics_generalPerformanceClass')">generalPerformanceClass</a>
+                                    </div><span class="badge badge-dark value-type">Type: string</span><br>
+                                    <div class="description collapse"
+                                        id=collapseDescription_characteristics_generalPerformanceClass>
+                                        <p>The performance class of the product. This attribute is mentioned ESPR
+                                            provisional agreement from January 9th, 2024 Article 7:<br> 4. When
+                                            establishing the information requirements referred to in paragraph 2, point
+                                            (b), point (i), the Commission shall, as appropriate in view of the
+                                            specificity of the product group, determine classes of performance. Classes
+                                            of performance may be based on single parameters, on aggregated scores, in
+                                            absolute terms or in any other form that enables potential customers to
+                                            choose the best performing products. Those classes of performance shall
+                                            correspond to significant improvements in performance levels. Where classes
+                                            of performance are based on parameters in relation to which performance
+                                            requirements are established, they shall use as the minimum level the
+                                            minimum performance required at the time when the classes of performance
+                                            start to apply.<br> Definition:<br> &#39;class of performance&#39;: means a
+                                            range of performance levels in relation to one or more product parameters
+                                            referred to in Annex I, based on a common methodology for the product or
+                                            product group, ordered into successive steps to allow for product
+                                            differentiation.</p>
+                                    </div>
+                                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                                            href=#collapseDescription_characteristics_generalPerformanceClass
+                                            aria-expanded=false
+                                            aria-controls=collapseDescriptioncharacteristics_generalPerformanceClass></a>
+                                    </div><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_version
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_version')"
+                                        class=ref-link>Same definition as version</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=accordion id=accordioncommercial>
+        <div class=card>
+            <div class=card-header id=headingcommercial>
+                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button data-toggle=collapse
+                        data-target=#commercial aria-expanded aria-controls=commercial
+                        onclick="setAnchor('#commercial')"><span class=property-name>commercial</span> <span
+                            class="badge badge-warning required-property">Required</span></button> </h2>
+            </div>
+            <div id=commercial class="collapse property-definition-div" aria-labelledby=headingcommercial
+                data-parent=#accordioncommercial>
+                <div class="card-body pl-5">
+                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                            class="bi bi-arrow-right-short" fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                            <path fill-rule=evenodd
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                        </svg> <a href=#commercial onclick="anchorLink('commercial')">commercial</a></div><span
+                        class="badge badge-dark value-type">Type: object</span><br> <span class=description>
+                        <p>Commercial information of the product.</p>
+                    </span>
+                    <div class=accordion id=accordioncommercial_placedOnMarket>
+                        <div class=card>
+                            <div class=card-header id=headingcommercial_placedOnMarket>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#commercial_placedOnMarket aria-expanded
+                                        aria-controls=commercial_placedOnMarket
+                                        onclick="setAnchor('#commercial_placedOnMarket')"><span
+                                            class=property-name>placedOnMarket</span></button> </h2>
+                            </div>
+                            <div id=commercial_placedOnMarket class="collapse property-definition-div"
+                                aria-labelledby=headingcommercial_placedOnMarket
+                                data-parent=#accordioncommercial_placedOnMarket>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#commercial onclick="anchorLink('commercial')">commercial</a>
+                                        <svg width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#commercial_placedOnMarket
+                                            onclick="anchorLink('commercial_placedOnMarket')">placedOnMarket</a></div>
+                                    <span class="badge badge-dark value-type">Type: string</span><br> <span
+                                        class=description>
+                                        <p>The timestamp in the format (yyyy-mm-dd) with or without time zone when the
+                                            product was put in the market.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_expirationDate
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_expirationDate')"
+                                        class=ref-link>Same definition as expirationDate</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordioncommercial_purpose>
+                        <div class=card>
+                            <div class=card-header id=headingcommercial_purpose>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#commercial_purpose aria-expanded
+                                        aria-controls=commercial_purpose
+                                        onclick="setAnchor('#commercial_purpose')"><span
+                                            class=property-name>purpose</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=commercial_purpose class="collapse property-definition-div"
+                                aria-labelledby=headingcommercial_purpose data-parent=#accordioncommercial_purpose>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#commercial onclick="anchorLink('commercial')">commercial</a>
+                                        <svg width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#commercial_purpose
+                                            onclick="anchorLink('commercial_purpose')">purpose</a></div><span
+                                        class="badge badge-dark value-type">Type: array of string</span><br> <span
+                                        class=description>
+                                        <p>One or more intended industry/industries of the product described by the
+                                            digital product passport. If exchanged via Catena-X, &#39;automotive &#39;
+                                            is a must choice included in the list.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_CommercialCharacteristic_purpose
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_CommercialCharacteristic_purpose')"
+                                        class=ref-link>Same definition as purpose</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=accordion id=accordionmaterials>
+        <div class=card>
+            <div class=card-header id=headingmaterials>
+                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button data-toggle=collapse
+                        data-target=#materials aria-expanded aria-controls=materials
+                        onclick="setAnchor('#materials')"><span class=property-name>materials</span> <span
+                            class="badge badge-warning required-property">Required</span></button> </h2>
+            </div>
+            <div id=materials class="collapse property-definition-div" aria-labelledby=headingmaterials
+                data-parent=#accordionmaterials>
+                <div class="card-body pl-5">
+                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                            class="bi bi-arrow-right-short" fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                            <path fill-rule=evenodd
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                        </svg> <a href=#materials onclick="anchorLink('materials')">materials</a></div><span
+                        class="badge badge-dark value-type">Type: object</span><br> <span class=description>
+                        <p>Properties which are relevant for the materials of the product.</p>
+                    </span>
+                    <div class=accordion id=accordionmaterials_substancesOfConcern>
+                        <div class=card>
+                            <div class=card-header id=headingmaterials_substancesOfConcern>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#materials_substancesOfConcern aria-expanded
+                                        aria-controls=materials_substancesOfConcern
+                                        onclick="setAnchor('#materials_substancesOfConcern')"><span
+                                            class=property-name>substancesOfConcern</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=materials_substancesOfConcern class="collapse property-definition-div"
+                                aria-labelledby=headingmaterials_substancesOfConcern
+                                data-parent=#accordionmaterials_substancesOfConcern>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#materials onclick="anchorLink('materials')">materials</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#materials_substancesOfConcern
+                                            onclick="anchorLink('materials_substancesOfConcern')">substancesOfConcern</a>
+                                    </div><span class="badge badge-dark value-type">Type: object</span><br> <span
+                                        class=description>
+                                        <p>Information regarding substances of concern in the product. The ESPR
+                                            provisional agreement from January 9th, 2024 defines:<br> (52)
+                                            &#39;hazardous substance&#39; means a substance classified as hazardous
+                                            pursuant to Article 3 of Regulation (EC) No 1272/2008.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MaterialsCharacteristic_substancesOfConcern
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MaterialsCharacteristic_substancesOfConcern')"
+                                        class=ref-link>Same definition as substancesOfConcern</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionmaterials_materialComposition>
+                        <div class=card>
+                            <div class=card-header id=headingmaterials_materialComposition>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#materials_materialComposition aria-expanded
+                                        aria-controls=materials_materialComposition
+                                        onclick="setAnchor('#materials_materialComposition')"><span
+                                            class=property-name>materialComposition</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=materials_materialComposition class="collapse property-definition-div"
+                                aria-labelledby=headingmaterials_materialComposition
+                                data-parent=#accordionmaterials_materialComposition>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#materials onclick="anchorLink('materials')">materials</a> <svg
+                                            width=1em height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#materials_materialComposition
+                                            onclick="anchorLink('materials_materialComposition')">materialComposition</a>
+                                    </div><span class="badge badge-dark value-type">Type: object</span><br> <span
+                                        class=description>
+                                        <p>Material composition of the product with information on recycled and
+                                            renewable materials.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MaterialsCharacteristic_materialComposition
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MaterialsCharacteristic_materialComposition')"
+                                        class=ref-link>Same definition as materialComposition</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=accordion id=accordionsustainability>
+        <div class=card>
+            <div class=card-header id=headingsustainability>
+                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button data-toggle=collapse
+                        data-target=#sustainability aria-expanded aria-controls=sustainability
+                        onclick="setAnchor('#sustainability')"><span class=property-name>sustainability</span> <span
+                            class="badge badge-warning required-property">Required</span></button> </h2>
+            </div>
+            <div id=sustainability class="collapse property-definition-div" aria-labelledby=headingsustainability
+                data-parent=#accordionsustainability>
+                <div class="card-body pl-5">
+                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                            class="bi bi-arrow-right-short" fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                            <path fill-rule=evenodd
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                        </svg> <a href=#sustainability onclick="anchorLink('sustainability')">sustainability</a></div>
+                    <span class="badge badge-dark value-type">Type: object</span><br> <span class=description>
+                        <p>Sustainability related attributes.</p>
+                    </span>
+                    <div class=accordion id=accordionsustainability_status>
+                        <div class=card>
+                            <div class=card-header id=headingsustainability_status>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#sustainability_status aria-expanded
+                                        aria-controls=sustainability_status
+                                        onclick="setAnchor('#sustainability_status')"><span
+                                            class=property-name>status</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=sustainability_status class="collapse property-definition-div"
+                                aria-labelledby=headingsustainability_status
+                                data-parent=#accordionsustainability_status>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#sustainability
+                                            onclick="anchorLink('sustainability')">sustainability</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#sustainability_status
+                                            onclick="anchorLink('sustainability_status')">status</a></div><span
+                                        class="badge badge-dark value-type">Type: enum (of string)</span><br> <span
+                                        class=description>
+                                        <p>The status of the product (original, repurposed, re-used, remanufactured or
+                                            waste) to indicated, whether it is a used product. This attribute is
+                                            mentioned in the ESPR proposal from March 30th, 2022 Annex I:<br> (j)
+                                            incorporation of used components.</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_SustainabilityCharacteristic_status
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_SustainabilityCharacteristic_status')"
+                                        class=ref-link>Same definition as status</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionsustainability_productFootprint>
+                        <div class=card>
+                            <div class=card-header id=headingsustainability_productFootprint>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#sustainability_productFootprint aria-expanded
+                                        aria-controls=sustainability_productFootprint
+                                        onclick="setAnchor('#sustainability_productFootprint')"><span
+                                            class=property-name>productFootprint</span> <span
+                                            class="badge badge-warning required-property">Required</span></button> </h2>
+                            </div>
+                            <div id=sustainability_productFootprint class="collapse property-definition-div"
+                                aria-labelledby=headingsustainability_productFootprint
+                                data-parent=#accordionsustainability_productFootprint>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#sustainability
+                                            onclick="anchorLink('sustainability')">sustainability</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#sustainability_productFootprint
+                                            onclick="anchorLink('sustainability_productFootprint')">productFootprint</a>
+                                    </div><span class="badge badge-dark value-type">Type: object</span><br>
+                                    <div class="description collapse"
+                                        id=collapseDescription_sustainability_productFootprint>
+                                        <p>The carbon and environmental footprint or material footprint of the product.
+                                            These attributes are mentioned in the ESPR provisional agreement from
+                                            January 9th 2024 Annex I:<br> (l) the environmental footprint of the
+                                            product, expressed as a quantification, in accordance with the applicable
+                                            delegated act, of a product&#39;s life cycle environmental impacts, whether
+                                            in relation to one or more environmental impact categories or an aggregated
+                                            set of impact categories;<br> (m) the carbon footprint of the product;<br>
+                                            (ma) the material footprint of the product;<br> All are defined by Article
+                                            2:<br> (23) &#39;environmental footprint&#39; means a quantification of
+                                            product environmental impacts throughout its life cycle, whether in relation
+                                            to a single environmental impact category or an aggregated set of impact
+                                            categories based on the Product Environmental Footprint method or other
+                                            scientific methods developed by international organisations and widely
+                                            tested in collaboration with different industry sectors and adopted or
+                                            implemented by the Commission in other Union<br> legislation;<br> (25)
+                                            &#39;carbon footprint&#39; means the sum of greenhouse gas (GHG) emissions
+                                            and GHG removals in a product system, expressed as CO2 equivalents and based
+                                            on a life cycle assessment using the single impact category of climate
+                                            change.<br> (25a) &#39;material footprint&#39; refers to the total amount of
+                                            raw materials extracted to meet final consumption demands;</p>
+                                    </div>
+                                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                                            href=#collapseDescription_sustainability_productFootprint
+                                            aria-expanded=false
+                                            aria-controls=collapseDescriptionsustainability_productFootprint></a> </div>
+                                    <a href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_SustainabilityCharacteristic_productFootprint
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_SustainabilityCharacteristic_productFootprint')"
+                                        class=ref-link>Same definition as productFootprint</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionsustainability_reparabilityScore>
+                        <div class=card>
+                            <div class=card-header id=headingsustainability_reparabilityScore>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#sustainability_reparabilityScore aria-expanded
+                                        aria-controls=sustainability_reparabilityScore
+                                        onclick="setAnchor('#sustainability_reparabilityScore')"><span
+                                            class=property-name>reparabilityScore</span></button> </h2>
+                            </div>
+                            <div id=sustainability_reparabilityScore class="collapse property-definition-div"
+                                aria-labelledby=headingsustainability_reparabilityScore
+                                data-parent=#accordionsustainability_reparabilityScore>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#sustainability
+                                            onclick="anchorLink('sustainability')">sustainability</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#sustainability_reparabilityScore
+                                            onclick="anchorLink('sustainability_reparabilityScore')">reparabilityScore</a>
+                                    </div><span class="badge badge-dark value-type">Type: string</span><br> <span
+                                        class=description>
+                                        <p>The reparability score. This attribute is mentioned ESPR provisional
+                                            agreement from January 9th, 2024 Article 7:<br> (b) as appropriate, also
+                                            require products to be accompanied by:<br> (i) information on the
+                                            performance of the product in relation to one or more of the product
+                                            parameters referred to in Annex I, including a scoring of reparability or
+                                            durability [...].</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_version
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_version')"
+                                        class=ref-link>Same definition as version</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=accordion id=accordionsustainability_durabilityScore>
+                        <div class=card>
+                            <div class=card-header id=headingsustainability_durabilityScore>
+                                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button
+                                        data-toggle=collapse data-target=#sustainability_durabilityScore aria-expanded
+                                        aria-controls=sustainability_durabilityScore
+                                        onclick="setAnchor('#sustainability_durabilityScore')"><span
+                                            class=property-name>durabilityScore</span></button> </h2>
+                            </div>
+                            <div id=sustainability_durabilityScore class="collapse property-definition-div"
+                                aria-labelledby=headingsustainability_durabilityScore
+                                data-parent=#accordionsustainability_durabilityScore>
+                                <div class="card-body pl-5">
+                                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                            class="bi bi-arrow-right-short" fill=currentColor
+                                            xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#sustainability
+                                            onclick="anchorLink('sustainability')">sustainability</a> <svg width=1em
+                                            height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short"
+                                            fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                            <path fill-rule=evenodd
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg> <a href=#sustainability_durabilityScore
+                                            onclick="anchorLink('sustainability_durabilityScore')">durabilityScore</a>
+                                    </div><span class="badge badge-dark value-type">Type: string</span><br> <span
+                                        class=description>
+                                        <p>The durability score. This attribute is mentioned ESPR provisional agreement
+                                            from January 9th, 2024 Article 7:<br> (b) as appropriate, also require
+                                            products to be accompanied by:<br> (i) information on the performance of the
+                                            product in relation to one or more of the product parameters referred to in
+                                            Annex I, including a scoring of reparability or durability [...].</p>
+                                    </span><a
+                                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_version
+                                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_MetadataCharacteristic_version')"
+                                        class=ref-link>Same definition as version</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=accordion id=accordionsources>
+        <div class=card>
+            <div class=card-header id=headingsources>
+                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button data-toggle=collapse
+                        data-target=#sources aria-expanded aria-controls=sources onclick="setAnchor('#sources')"><span
+                            class=property-name>sources</span> <span
+                            class="badge badge-warning required-property">Required</span></button> </h2>
+            </div>
+            <div id=sources class="collapse property-definition-div" aria-labelledby=headingsources
+                data-parent=#accordionsources>
+                <div class="card-body pl-5">
+                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                            class="bi bi-arrow-right-short" fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                            <path fill-rule=evenodd
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                        </svg> <a href=#sources onclick="anchorLink('sources')">sources</a></div><span
+                        class="badge badge-dark value-type">Type: array</span><br>
+                    <div class="description collapse" id=collapseDescription_sources>
+                        <p>Documents that are mandatory if applicable for the product. These are mentioned in the ESPR
+                            provisional agreement from January 9th, 2024 ANNEX III:<br> (e) compliance documentation and
+                            information required under this Regulation or other Union law applicable to the product,
+                            such as the declaration of conformity, technical documentation or conformity
+                            certificates;<br> (f) user manuals, instructions, warnings or safety information, as
+                            required by other Union legislation applicable to the product.<br> Additionally requirements
+                            are mentioned in Article 21:<br> 7. Manufacturers shall ensure that a product covered by a
+                            delegated act adopted pursuant to Article 4 is accompanied by instructions in digital format
+                            that enable customers and other relevant actors to assemble, install, operate, store,
+                            maintain, repair and dispose of the product in a language that can be easily understood, as
+                            determined by the Member State concerned. Such instructions shall be clear, understandable
+                            and legible and include at least the information set out in Article 7(2), point (b), point
+                            (ii) specified in the delegated acts adopted pursuant to Article 4.<br> Article 7 states
+                            additionally:<br> (ii) information for customers and other actors on how to install, use,
+                            maintain and repair the product, in order to minimise its impact on the environment and to
+                            ensure optimum durability, on how to install third-party operating systems where relevant,
+                            as well as on collection for refurbishment or remanufacture, and on how to return or handle
+                            the product at the end of its life;<br> (2) (b) (iii) information for treatment facilities
+                            on disassembly, reuse, refurbishment, recycling, or disposal at end-of-life;<br> (2) (b)
+                            (iv) other information that may influence sustainable product choices for customers and the
+                            way the product is handled by parties other than the manufacturer in order to facilitate
+                            appropriate use, value retaining operations and correct treatment at end-of-life.<br> (5)
+                            (d) relevant instructions for the safe use of the product.<br> (5) (e) information relevant
+                            for disassembly, preparation for reuse, reuse, recycling and the environmentally sound
+                            management of the product at the end of its life.<br> Annex I:<br> (b) [...] availability of
+                            repair and maintenance instructions, number of materials and components used, use of
+                            standard components,[...] number and complexity of processes and whether specialised
+                            toolsare needed, ease of non-destructive disassembly and re-assembly, conditions for access
+                            to product data, conditions for access to or use of hardware and software needed;<br> (c)
+                            ease of upgrading, re-use, remanufacturing and refurbishment as expressed through: [...]
+                            number and complexity of processes and tools needed, ease of non-destructive disassembly and
+                            re-assembly, conditions for access to product data, conditions for access to or use of
+                            hardware and software needed, conditions of access to test protocols or not commonly
+                            available testing equipment, availability of guarantees specific to remanufactured or
+                            refurbished products, conditions for access to or use of technologies protected by
+                            intellectual property rights, modularity;<br> (d) design for recycling, ease and quality of
+                            recycling as expressed through: use of easily recyclable materials, safe, easy and
+                            non-destructive access to recyclable components and materials or components and materials
+                            containing hazardous substances and material composition and homogeneity, possibility for
+                            high-purity sorting, [...] number and complexity of processes and tools needed, ease of
+                            nondestructive disassembly and re-assembly, conditions for access to product data,
+                            conditions for access to or use of hardware and software needed;<br> (q) functional
+                            performance and conditions for use including as expressed through ability in performing its
+                            intended use, precautions of use, skills required, compatibility with other products or
+                            systems.<br> Additionally to consider are guidelines and instructions regarding the proper
+                            management and disposal of packaging materials after use. This can include instructions for
+                            separation, reuse, and recycling.</p>
+                    </div>
+                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                            href=#collapseDescription_sources aria-expanded=false
+                            aria-controls=collapseDescriptionsources></a> </div> <span
+                        class="badge badge-info no-additional">No Additional Items</span>
+                    <h4>Each item of this array must be:</h4>
+                    <div class=card>
+                        <div class="card-body items-definition" id=sources_items>
+                            <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                                    class="bi bi-arrow-right-short" fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                                    <path fill-rule=evenodd
+                                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                </svg> <a href=#sources onclick="anchorLink('sources')">sources</a> <svg width=1em
+                                    height=1em viewbox="0 0 16 16" class="bi bi-arrow-right-short" fill=currentColor
+                                    xmlns=http://www.w3.org/2000/svg>
+                                    <path fill-rule=evenodd
+                                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                </svg> <a href=#sources_items
+                                    onclick="anchorLink('sources_items')">urn_samm_io.catenax.generic.digital_product_passport_5.0.0_DocumentEntity</a>
+                            </div><span class="badge badge-dark value-type">Type: object</span><br> <span
+                                class=description>
+                                <p>Document entity with header, content, category and type.</p>
+                            </span><a
+                                href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_SourceList_items
+                                onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_SourceList_items')"
+                                class=ref-link>Same definition as
+                                components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_SourceList_items</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=accordion id=accordionadditionalData>
+        <div class=card>
+            <div class=card-header id=headingadditionalData>
+                <h2 class=mb-0> <button class="btn btn-link property-name-button" type=button data-toggle=collapse
+                        data-target=#additionalData aria-expanded aria-controls=additionalData
+                        onclick="setAnchor('#additionalData')"><span class=property-name>additionalData</span></button>
+                </h2>
+            </div>
+            <div id=additionalData class="collapse property-definition-div" aria-labelledby=headingadditionalData
+                data-parent=#accordionadditionalData>
+                <div class="card-body pl-5">
+                    <div class=breadcrumbs>root <svg width=1em height=1em viewbox="0 0 16 16"
+                            class="bi bi-arrow-right-short" fill=currentColor xmlns=http://www.w3.org/2000/svg>
+                            <path fill-rule=evenodd
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                        </svg> <a href=#additionalData onclick="anchorLink('additionalData')">additionalData</a></div>
+                    <span class="badge badge-dark value-type">Type: array</span><br>
+                    <div class="description collapse" id=collapseDescription_additionalData>
+                        <p>Data in form of open fields which need to be transferred in addition. The regulation is still
+                            under development and may change in the future. To accommodate this, additional data allows
+                            the option to include additional data required by future changes to the regulation. In
+                            addition, the DPP can be easily updated and adapted to the new requirements.<br> The ESPR
+                            provisional agreement from January 9th, 2024 Article 9 mentions:<br> 2. Where other Union
+                            legislation requires or allows the inclusion of specific information in the product
+                            passport, that information may be included in the product passport pursuant to the
+                            applicable delegated act adopted pursuant to Article 4.</p>
+                    </div>
+                    <div> <a class="collapse-description-link collapsed" data-toggle=collapse
+                            href=#collapseDescription_additionalData aria-expanded=false
+                            aria-controls=collapseDescriptionadditionalData></a> </div><a
+                        href=#components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_AdditionalDataEntity_children
+                        onclick="anchorLink('components_schemas_urn_samm_iocatenaxgenericdigital_product_passport_500_AdditionalDataEntity_children')"
+                        class=ref-link>Same definition as children</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p class=generated-by-footer>Generated using <a
+                href=https://github.com/coveooss/json-schema-for-humans>json-schema-for-humans</a> on 2024-05-27 at
+            14:10:57 +0200</p>
+    </footer>
+</body>
+
+</html>
