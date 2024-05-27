@@ -100,8 +100,8 @@ def sign_credential():
     logger.debug("[] Credential Signed!")
     return jsonify(body)
 
-@app.get("/view/<semanticIdHash>")
-def view(semanticIdHash):
+@app.get("/schema/<semanticIdHash>")
+def schema(semanticIdHash):
     """
     Generates a context for the verifiable credentials
 
@@ -114,7 +114,6 @@ def view(semanticIdHash):
         filePath = f"./schemas/{semanticIdHash}/schema.json"
         if(not op.path_exists(filePath)):
            HttpUtils.get_error_response(message="Schema does not exist!", status=404)
-        
         return HttpUtils.response(generator.schema_file_to_html(file_path=filePath), content_type="text/html")
     except Exception as e:
         logger.exception(e)
@@ -122,26 +121,6 @@ def view(semanticIdHash):
 
     return HttpUtils.get_error_response(message="Error when parsing schema!")
 
-@app.post("/html")
-def html():
-    """
-    Generates a context for the verifiable credentials
-
-    Receives:
-        vc: :vc: unsigned verifiable credential
-    Returns:
-        response: :vc: schema
-    """
-    try:
-        body = HttpUtils.get_body(request)
-        if(not body):
-            return jsonify(HttpUtils.get_error_response())
-        return HttpUtils.response(generator.schema_to_html(body))
-    except Exception as e:
-        logger.exception(e)
-        traceback.print_exc()
-
-    return HttpUtils.get_error_response(message="Error when parsing schema!")
 
 @app.post("/context")
 def context():
@@ -164,8 +143,8 @@ def context():
 
     return HttpUtils.get_error_response(message="Error when parsing schema!")
 
-@app.post("/schema")
-def schema():
+@app.post("/ttl")
+def ttl():
     """
     Generates a schema for the verifiable credentials
 

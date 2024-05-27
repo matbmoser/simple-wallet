@@ -39,10 +39,10 @@ def turtle_to_jsonld(data, file_path=None):
     return response
 
 def schema_to_context(data, file_path=None):
+    
     description= op.get_attribute(data, "description")
     print(description)
     resolver = op.get_attribute(data, "properties")
-    print(resolver)
     return resolver
 
 
