@@ -2,7 +2,7 @@
     "id": "https://tx-dpp.int.demo.catena-x.net/provider_backend/data/cx:mfg024:prt-30001",
     "@context": [
         "https://www.w3.org/2018/credentials/v1",
-        "https://raw.githubusercontent.com/matbmoser/simple-wallet/master/wallet/schemas/digitalProductPass-v5.0.0/vocabulary.jsonld",
+        "https://raw.githubusercontent.com/matbmoser/simple-wallet/master/wallet/schemas/f815fea99851b9505907020564acfbe1/newSchema.jsonld",
         "https://w3c.github.io/vc-jws-2020/contexts/v1/"
     ],
     "type": [

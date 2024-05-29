@@ -585,7 +585,7 @@
 :PhysicalDimensionEntity a samm:Entity ;
    samm:preferredName "Physical Dimension Entity"@en ;
    samm:description "Entity for physical dimensions with linear, mass and capacity attributes. Either weight or volume is mandatory."@en ;
-   samm:properties ( [ samm:property :width; samm:optional true ] [ samm:property :length; samm:optional true ] [ samm:property :diameter; samm:optional true ] [ samm:property :height; samm:optional true ] :grossWeight :grossVolume :weight :volume ) .
+   samm:properties ( [ samm:property :width;  samm:payloadName "width"; samm:exampleValue "0"; samm:optional true ] [ samm:property :length; samm:payloadName "length"; samm:exampleValue "0"; samm:optional true ] [ samm:property :diameter;    samm:exampleValue "0"; samm:payloadName "diameter"; samm:optional true ] [ samm:property :height;    samm:exampleValue "0";  samm:payloadName "height"; samm:optional true ] :grossWeight :grossVolume :weight :volume ) .
 
 :SubstanceOfConcernEntity a samm:Entity ;
    samm:preferredName "Substance Of Concern Entity"@en ;
