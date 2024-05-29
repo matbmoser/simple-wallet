@@ -16,8 +16,6 @@
         "checksum": "64b1a523da600e8fc0018cf57b8f7756b83bb6e9b11c81b1c7444272fab239902321b1b6ae6624d6846fd010616ae98c118f12491f922badd64e58b782c6a115"
     },
     "credentialSubject": {
-        "id": "did:web:dpp-test-system.com:BPNL000000000000:api:public:urn%3Auuid%3A6da1f07c-999b-4602-b4d3-8eb649e5d10f",
-        "data": {
             "metadata": {
                 "backupReference": "https://dummy.link",
                 "registrationIdentifier": "https://dummy.link/ID8283746239078",
@@ -339,7 +337,6 @@
                 "status": "original",
                 "durabilityScore": "A"
             }
-        }
     },
     "issuanceDate": "2024-02-15T00:00:00.000Z",
     "proof": {

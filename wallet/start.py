@@ -8,6 +8,7 @@ with a public key also generated.
 
 import sys
 import os
+
 # Add the previous folder structure to the system path to import the utilities
 sys.path.append("../")
 
@@ -30,7 +31,7 @@ from utilities.operators import op
 import yaml
 from pyld import jsonld
 import json
-from passport import generator
+from passport import generator, parser
 
 op.make_dir("logs")
 op.make_dir("test")
@@ -115,6 +116,35 @@ def schema(semanticIdHash):
         if(not op.path_exists(filePath)):
            HttpUtils.get_error_response(message="Schema does not exist!", status=404)
         return HttpUtils.response(generator.schema_file_to_html(file_path=filePath), content_type="text/html")
+    except Exception as e:
+        logger.exception(e)
+        traceback.print_exc()
+
+    return HttpUtils.get_error_response(message="Error when parsing schema!")
+
+@app.post("/parse")
+def parse():
+    """
+    Generates a context for the verifiable credentials
+
+    Receives:
+        vc: :vc: unsigned verifiable credential
+    Returns:
+        response: :vc: schema
+    """
+    try:
+        body = HttpUtils.get_body(request)
+        
+        semanticId = op.get_attribute(body, "semanticId")
+        schema = op.get_attribute(body, "schema")
+
+        if not semanticId:
+           HttpUtils.get_error_response(message="No semantic id specified", status=403)
+        if not schema:
+           HttpUtils.get_error_response(message="No schema specified", status=403)
+
+        schemaParser = parser.sammSchemaParser(semanticId)
+        return HttpUtils.response(schemaParser.schema_to_jsonld(schema=schema), content_type="text/html")
     except Exception as e:
         logger.exception(e)
         traceback.print_exc()
