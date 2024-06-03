@@ -143,8 +143,8 @@ def parse():
         if not schema:
            HttpUtils.get_error_response(message="No schema specified", status=403)
 
-        schemaParser = parser.sammSchemaParser(semanticId)
-        return HttpUtils.response(schemaParser.schema_to_jsonld(schema=schema), content_type="text/html")
+        schemaParser = parser.sammSchemaParser()
+        return HttpUtils.response(schemaParser.schema_to_jsonld(semanticId=semanticId, schema=schema))
     except Exception as e:
         logger.exception(e)
         traceback.print_exc()

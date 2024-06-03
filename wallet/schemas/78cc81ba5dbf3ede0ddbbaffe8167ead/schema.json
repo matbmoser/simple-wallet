@@ -102,17 +102,3 @@
     "required" : [ "catenaXId", "childItems" ]
   }
 
-  {
-    "@context": {
-      "catenaXId": {
-        "@id": "aspect:catenaXId",
-        "@type": "schema:string",
-        "@definition": "The Catena-X ID of the given part (e.g. the component), valid for the Catena-X dataspace.",
-      }
-    }
-
-
-
-    
-
-  }

@@ -31,7 +31,7 @@ import copy
 #urn:samm:io.catenax.single_level_bom_as_built:3.0.0#
 
 class sammSchemaParser:
-    def __init__(self, semanticId="urn:samm:io.catenax.generic.digital_product_passport:5.0.0#"):
+    def __init__(self):
         self.baseSchema = dict()
         self.rootRef = "#"
         self.refKey = "$ref"
@@ -43,8 +43,7 @@ class sammSchemaParser:
         self.contextPrefix = "@context"
         self.complexTypes = ["object", "array"]
         self.initialJsonLd = {
-                self.schemaPrefix: "https://schema.org/",
-                self.aspectPrefix: semanticId,
+            self.schemaPrefix: "https://schema.org/"
         }
         self.contextTemplate = {
             "@version": 1.1,
@@ -52,69 +51,29 @@ class sammSchemaParser:
             "type": "@type"
         }
     
-    def schema_to_jsonld(self, schema):
+    def schema_to_jsonld(self, semanticId, schema):
         self.baseSchema = copy.deepcopy(schema)
-        jsonLdContext = self.expand_node(node=schema, parent=self.initialJsonLd) 
+        semanticParts = semanticId.split(self.rootRef)  
+        if((len(semanticParts) < 2) or (semanticParts[1] == '')):
+            raise Exception("Invalid semantic id, missing the model reference!")
 
-        if not jsonLdContext:
+        jsonLdContext = self.create_node(property=schema)
+        
+        if jsonLdContext is None:
             raise Exception("It was not possible to generated the json-ld!")
-
+        jsonLdContext["aspect"] = semanticParts[0] + self.rootRef
+        jsonLdContext["@id"] = semanticParts[1]
+        jsonLdContext.update(self.initialJsonLd)
         return jsonLdContext
     
 
-    """ schema -> @context
-     
-      schema 
-
-        "array" -> "items"
-        "object" -> "properties"
-        "description"
-        "type"
-      
-      @context
-        
-      
-        node["type"] == "array"
-        "array of objects" -> 
-            @container: "@list" (or "@set")
-            @id -> object id  
-            @context -> 
-                @version: 1.1
-                id: @id
-                type: @type
-                "prop1" ->
-                "prop2" ->  
-        "array of strings/numbers" -> 
-
-        node["type"] == "object"
-        "object" ->
-            @id -> object id | "aspect:{node key}"        
-            @context -> {parent propeties}
-                @version: 1.1
-                id: @id
-                type: @type
-                "prop1" ->  | child properties key
-                "prop2" ->  | child properties key
-        
-                
-        node["type"] == "string":
-            @id -> object id | "aspect:{node key}"
-            @type -> {node type}
-            @definition -> node description
-
-          """
-    def expand_node(self, ref):
+    def expand_node(self, ref, key=None):
         ## Ref must not be None
-        if(ref is None):
-            return None
+        if (ref is None): return None
 
         ## Get expanded node
         expandedNode = self.get_schema_ref(ref=ref)
-        if(expandedNode is None):
-            return None
-
-        return self.create_node(property=expandedNode)
-
+        return self.create_node(property=expandedNode, key=key)
 
 
     """
@@ -122,17 +81,15 @@ class sammSchemaParser:
     upper schema -> return context
     
     """
-    def create_node(self, property):
+    def create_node(self, property, key=None):
         ## Schema must be not none and type must be in the schema
-        if (property is None) or (not "type" in property):
-            return None
+        if (property is None) or (not "type" in property): return None
         
         ## Start by creating a simple node
-        node = self.create_simple_node(property=property)
+        node = self.create_simple_node(property=property, key=key)
 
         ## If is not possible to create the simple node it is not possible to create any node
-        if(node is None):
-            return None
+        if(node is None): return None
 
         propertyType = property["type"]
 
@@ -147,8 +104,7 @@ class sammSchemaParser:
     def create_value_node(self, property, node):
         
         ## If type exists add definition to the node
-        if not ("type" in property):
-            return None
+        if not ("type" in property): return None
         
         node["@type"] = self.schemaPrefix+":"+property["type"]
         return node
@@ -156,8 +112,7 @@ class sammSchemaParser:
     def create_object_node(self, property, node):
         
         ## If object has not the properties key
-        if not (self.propertiesKey in property):
-            return None
+        if not (self.propertiesKey in property): return None
         
         properties = property[self.propertiesKey]
 
@@ -167,8 +122,7 @@ class sammSchemaParser:
     def create_array_node(self, property, node):
         
         ## If array node has not the item key
-        if not (self.itemKey in property):
-            return None
+        if not (self.itemKey in property): return None
         
         item = property[self.itemKey]
         node["@container"] = "@list" 
@@ -193,16 +147,13 @@ class sammSchemaParser:
     """
     def create_properties_context(self, properties):
         ## If no key is provided or node is empty
-        if(properties is None):
-            return None
+        if(properties is None): return None
         
         ## If no key is found
-        if(not isinstance(properties, dict)):
-            return None
+        if(not isinstance(properties, dict)): return None
         
         ## If no keys are provided in the properties
-        if(len(properties.keys())  == 0):
-            return None
+        if(len(properties.keys())  == 0): return None
         
         ## Create new context dict from template
         newContext = copy.deepcopy(self.contextTemplate)
@@ -217,44 +168,42 @@ class sammSchemaParser:
 
     def create_item_context(self, item):
         ## If no key is provided or node is empty
-        if(item is None):
-            return None
+        if(item is None): return None
         
         if not (self.refKey in item):
             return self.create_value_node(property=item)
+        
+        newContext = copy.deepcopy(self.contextTemplate)
         ref = item[self.refKey]
         nodeItem = self.expand_node(ref=ref)
-        
-        ## If was not possible to get the reference return None
-        if nodeItem is None:
-            return None
 
+        ## If was not possible to get the reference return None
+        if nodeItem is None: return None
+
+        newContext.update(nodeItem)
         ## Overite the existing description of ref item
         if "description" in item:
-            nodeItem["@definition"] = item["description"]
+            newContext["schema:definition"] = item["description"]
 
-        return nodeItem
+        return newContext
         
     def create_node_property(self, key, node):
         ## If no key is provided or node is empty
-        if(key is None) or (node is None):
-            return None
+        if(key is None) or (node is None): return None
 
         ## Ref property must exist in a property inside properties
-        if not (self.refKey in node):
-            return None
+        if not (self.refKey in node): return None
 
         ## Get reference from the base schema
         ref = node[self.refKey]
-        nodeProperty = self.expand_node(ref=ref)
+        nodeProperty = self.expand_node(ref=ref, key=key)
 
         ## If was not possible to get the reference return None
-        if nodeProperty is None:
-            return None
+        if nodeProperty is None: return None
 
         ## Overite the existing description of ref property
         if "description" in node:
-            nodeProperty["@definition"] = node["description"]
+            nodeProperty["schema:definition"] = node["description"]
 
         return nodeProperty
 
@@ -269,247 +218,26 @@ class sammSchemaParser:
             response: :dict: json ld simple node with the information of the node object
         """
         ## If no key is provided or node is empty
-        if (property is None):
-            return None
+        if (property is None): return None
         
         ## Create new json ld simple node
         newNode = dict()
 
         ## If the key is not none create a new node
         if not (key is None):
-            newNode["@id"] = self.schemaPrefix+":"+key
+            newNode["@id"] = self.aspectPrefix+":"+key
     
         ## If description exists add definition to the node
         if "description" in property:
-            newNode["@definition"] = property["description"]
+            newNode["schema:definition"] = property["description"]
         
         return newNode
     
-            
-
-    def generate_properties(self, schema, context=dict()):
-        
-        # All properties will be collected here
-        properties = op.get_attribute(sourceObject=schema, attrPath=self.propertiesKey)
-        if not properties:
-            raise Exception("It was not possible to get the properties attribute!")
-        if not properties or len(properties.keys()) == 0:
-            return None
-        
-        context["@version"] = 1.1
-        context["id"] = "@id"
-        context["type"] = "@type"
-
-        newProperty = dict() 
-
-        # If the property has a reference
-        if self.refKey in value:
-            newSchema = self.get_schema_ref(obj=value)
-        
-        if not newSchema:
-            raise Exception("It was not possible to get the value of the property!")
-
-        if not "type" in newSchema:
-            raise Exception("It was not possible to get the value of the property by type!")
-        
-        nodeType = op.get_attribute(newSchema, "type")
-        newProperty["@type"] = f"schema:{nodeType}"
-        newProperty["@id"] = f"aspect:{key}"
-
-        if "description" in value:
-            newProperty["@definition"] = op.get_attribute(value, "description")
-        elif "description" in newSchema:
-            newProperty["@definition"] = op.get_attribute(newSchema, "description")
-        
-        complexNodeTypes = ["object", "array"]
-
-        ## If is string
-        if not nodeType in complexNodeTypes:
-            context[key] = newProperty
-            return 
-
-
-        if nodeType == "object":
-            ## If is object
-            newProperty["id"] = "@id"
-            newProperty["@context"] = self.generate_properties(schema=newSchema, context=newProperty)
-
-        if nodeType == "array":
-            newProperty["@container"] = "@list"
-            item = op.get_attribute(sourceObject=newSchema, attrPath=self.itemKey)
-            if not item:
-                raise Exception("It was not possible to generated the json-ld because properties of object were null!")
-
-            newItem = dict() 
-
-            if "type" in item:
-                newItem["@type"] = f"schema:{op.get_attribute(item, "type")}"
-                newItem["@id"] = f"aspect:{key}"
-                return
-
-            if not self.refKey in item:
-                return
-
-            newItem["id"] = "@id"
-
-            reference = self.get_schema_ref(obj=item)
-            if not reference:
-                raise Exception("The reference key was not found!")
-            
-            newItem["@version"] = 1.1
-            
-            newProperty["@context"] = self.generate_properties(schema=reference, context=newItem)
-
-            context[key] = newProperty
-        
-        return context
-    
-    def generate_property(self, key, property, context):
-        
-        newProperty = dict() 
-        schema = property
-        # If the property has a reference
-        if self.refKey in property:
-            schema = self.get_schema_ref(obj=property)
-        
-        if not schema:
-            raise Exception("It was not possible to get the value of the property!")
-
-        if not "type" in schema:
-            raise Exception("It was not possible to get the value of the property by type!")
-        
-        nodeType = op.get_attribute(schema, "type")
-        newProperty["@type"] = f"schema:{nodeType}"
-        newProperty["@id"] = f"aspect:{key}"
-
-        if "description" in property:
-            newProperty["@definition"] = op.get_attribute(property, "description")
-        elif "description" in schema:
-            newProperty["@definition"] = op.get_attribute(schema, "description")
-        
-        complexNodeTypes = ["object", "array"]
-
-        ## If is string
-        if not nodeType in complexNodeTypes:
-            context[key] = newProperty
-            return newProperty
-
-
-        if nodeType == "object":
-            ## If is object
-            newProperty["id"] = "@id"
-            self.generate_properties(schema=schema, context=newProperty)
-
-        if nodeType == "array":
-            newProperty["@container"] = "@list"
-            item = op.get_attribute(sourceObject=schema, attrPath=self.itemKey)
-            if not item:
-                raise Exception("It was not possible to generated the json-ld because properties of object were null!")
-
-            newItem = dict() 
-
-            if "type" in item:
-                newItem["@type"] = f"schema:{op.get_attribute(item, "type")}"
-                newItem["@id"] = f"aspect:{key}"
-                return newItem
-
-            if not self.refKey in item:
-                return None
-
-            newItem["id"] = "@id"
-
-            reference = self.get_schema_ref(obj=item)
-            if not reference:
-                raise Exception("The reference key was not found!")
-            
-            newItem["@version"] = 1.1
-            
-            self.generate_properties(schema=reference, context=newItem)
-
-        context[key] = newProperty
-        return newProperty
-        
-
-    def generate_item(self, schema, itemKey, context):
-        
-        item = op.get_attribute(sourceObject=schema, attrPath=self.itemKey)
-        if not item:
-            raise Exception("It was not possible to generated the json-ld because properties of object were null!")
-
-        newItem = dict() 
-
-        if "type" in item:
-            newItem["@type"] = f"schema:{op.get_attribute(item, "type")}"
-            newItem["@id"] = f"aspect:{itemKey}"
-            return newItem
-
-        if not self.refKey in item:
-            return None
-
-        newItem["id"] = "@id"
-
-        reference = self.get_schema_ref(obj=item)
-        if not reference:
-            raise Exception("The reference key was not found!")
-        
-        newItem["@version"] = 1.1
-        
-        self.generate_properties(schema=reference, context=newItem)
-
-        return newItem
-    
 
     def get_schema_ref(self, ref):
+        if(not isinstance(ref, str)): return None
         path = ref.removeprefix("#/")        
         return op.get_attribute(self.baseSchema, attrPath=path, pathSep=self.pathSep, defaultValue=None)
-
-    """
-    def simplify_schema(self, schema):
-        self.baseSchema = copy.deepcopy(schema)
-        return self.expand_properties(schema=schema)
-    
-    def expand_schema(self, schema):
-        if not self.propertiesKey in schema:
-            return schema
-        
-        properties = op.get_attribute(sourceObject=schema, attrPath=self.propertiesKey)
-        if(properties is None or not properties):
-            return schema
-        
-        return self.expand_properties(properties=properties)
-
-    def expand_properties(self, properties):
-        if not properties:
-            return {}
-        newProperties = dict()
-        for key, property in properties:
-            newProperties[key] = self.expand_property(property=property)
-        
-        return newProperties
-        
-    def expand_property(self, property):
-        if not self.refKey in property:
-            return property
-
-        return self.get_schema_ref(property=property)
-
-    def get_properties(self, schema):
-        return
-     
-    def get_schema_ref(self, property):
-        # Get reference key
-        ref = op.get_attribute(property, self.refKey)
-        if(ref is None or not isinstance(ref, str)):
-            raise Exception(f"Reference for property [{property}] not found or is not string")
-        path = ref.removeprefix("#")
-
-        sub_schema = op.get_attribute(self.baseSchema, attrPath=path, pathSep=self.pathSep, defaultValue=None)
-        if(sub_schema is None):
-            raise Exception(f"Sub schema in path [{path}] not found!")
-        return sub_schema 
-        """
-    
-
 
 if __name__ == '__main__':
     """Test of the parsing functionality of this class"""
