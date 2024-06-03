@@ -41,10 +41,7 @@ def turtle_to_jsonld(data, file_path=None):
 def schema_to_context(data, file_path=None):
     properties = op.get_attribute(data, "properties")
 
-    return resolver
-
-
-
+    return None
 
 def schema_to_html(data, file_path=None):
     resolver = generate_from_schema(schema_file="./",loaded_schemas=op.json_string_to_object(op.to_json(data)), config=config)
