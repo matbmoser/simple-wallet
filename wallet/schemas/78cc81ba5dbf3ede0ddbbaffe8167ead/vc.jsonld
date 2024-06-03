@@ -1,9 +1,10 @@
 {
     "id": "https://tx-dpp.int.demo.catena-x.net/provider_backend/data/cx:mfg024:prt-30001",
     "@context": [
+        {            "schema": "https://schema.org/",
+        "aspect": "urn:samm:io.catenax.single_level_bom_as_built:3.0.0#"
+    },
         {
-            "@context": {
-                "@version": 1.1,
                 "catenaXId": {
                     "@id": "aspect:catenaXId",
                     "@type": "schema:string"
@@ -60,10 +61,7 @@
                 },
                 "id": "aspect:SingleLevelBomAsBuilt",
                 "type": "@type"
-            },
-            "schema": "https://schema.org/",
-            "aspect": "urn:samm:io.catenax.single_level_bom_as_built:3.0.0#"
-        }
+            }
     ],
     "type": [
         "VerifiableCredential",
