@@ -35,13 +35,17 @@ class sammSchemaParser:
         self.baseSchema = dict()
         self.rootRef = "#"
         self.refKey = "$ref"
-        self.pathSep = "/"
+        self.pathSep = "#/"
         self.propertiesKey = "properties"
         self.itemKey = "items"
         self.schemaPrefix = "schema"
         self.aspectPrefix = "aspect"
         self.contextPrefix = "@context"
         self.complexTypes = ["object", "array"]
+        self.parentRefs=list()
+        self.parentRef = None
+        self.recursionDepth = 2
+        self.depht = 0
         self.initialJsonLd = {
             self.schemaPrefix: "https://schema.org/"
         }
@@ -52,88 +56,109 @@ class sammSchemaParser:
         }
     
     def schema_to_jsonld(self, semanticId, schema):
-        self.baseSchema = copy.deepcopy(schema)
-        semanticParts = semanticId.split(self.rootRef)  
-        if((len(semanticParts) < 2) or (semanticParts[1] == '')):
-            raise Exception("Invalid semantic id, missing the model reference!")
+        try:
+            self.baseSchema = copy.copy(schema)
+            semanticParts = semanticId.split(self.rootRef)  
+            if((len(semanticParts) < 2) or (semanticParts[1] == '')):
+                raise Exception("Invalid semantic id, missing the model reference!")
 
-        jsonLdContext = self.create_node(property=schema)
-        
-        if jsonLdContext is None:
-            raise Exception("It was not possible to generated the json-ld!")
-        jsonLdContext["aspect"] = semanticParts[0] + self.rootRef
-        jsonLdContext["@id"] = semanticParts[1]
-        jsonLdContext.update(self.initialJsonLd)
-        return jsonLdContext
+            jsonLdContext = self.create_node(property=schema)
+            
+            if jsonLdContext is None:
+                raise Exception("It was not possible to generated the json-ld!")
+            jsonLdContext["aspect"] = semanticParts[0] + self.rootRef
+            jsonLdContext["@id"] = semanticParts[1]
+            jsonLdContext.update(self.initialJsonLd)
+            return jsonLdContext
+        except:
+            traceback.print_exc()
+            raise Exception("It was not possible to create jsonld schema")
     
 
     def expand_node(self, ref, key=None):
-        ## Ref must not be None
-        if (ref is None): return None
+        try:
+            ## Ref must not be None
+            if (ref is None): return None
 
-        ## Get expanded node
-        expandedNode = self.get_schema_ref(ref=ref)
-        return self.create_node(property=expandedNode, key=key)
-
-
-    """
-    
-    upper schema -> return context
-    
-    """
-    def create_node(self, property, key=None):
-        ## Schema must be not none and type must be in the schema
-        if (property is None) or (not "type" in property): return None
+            ## Get expanded node
+            expandedNode = self.get_schema_ref(ref=ref)
         
-        ## Start by creating a simple node
-        node = self.create_simple_node(property=property, key=key)
+            if(expandedNode is None): return None
+            return self.create_node(property=expandedNode, key=key, ref=ref)
+        except:
+            traceback.print_exc()
+            print("It was not possible to expand the node")
+            return None
 
-        ## If is not possible to create the simple node it is not possible to create any node
-        if(node is None): return None
+    def create_node(self, property, key=None, ref=None):
+        try:
+            ## Schema must be not none and type must be in the schema
+            if (property is None) or (not "type" in property): return None
+            
+            ## Start by creating a simple node
+            node = self.create_simple_node(property=property, key=key)
 
-        propertyType = property["type"]
+            ## If is not possible to create the simple node it is not possible to create any node
+            if(node is None): return None
 
-        if propertyType == "object":
-            return self.create_object_node(property=property, node=node)
-        
-        if propertyType == "array":
-            return self.create_array_node(property=property, node=node)
-        
-        return self.create_value_node(property=property, node=node)
+            propertyType = property["type"]
+
+            if propertyType == "object":
+                return self.create_object_node(property=property, node=node, ref=ref)
+            
+            if propertyType == "array":
+                return self.create_array_node(property=property, node=node, ref=ref)
+            
+            return self.create_value_node(property=property, node=node)
+        except:
+            traceback.print_exc()
+            print("It was not possible to create the node")
+            return None
 
     def create_value_node(self, property, node):
-        
-        ## If type exists add definition to the node
-        if not ("type" in property): return None
-        
-        node["@type"] = self.schemaPrefix+":"+property["type"]
-        return node
-    
-    def create_object_node(self, property, node):
-        
-        ## If object has not the properties key
-        if not (self.propertiesKey in property): return None
-        
-        properties = property[self.propertiesKey]
-
-        node[self.contextPrefix] = self.create_properties_context(properties=properties)
-        return node
-
-    def create_array_node(self, property, node):
-        
-        ## If array node has not the item key
-        if not (self.itemKey in property): return None
-        
-        item = property[self.itemKey]
-        node["@container"] = "@list" 
-
-        ## If list is with different types of data, dont specify a type
-        if(isinstance(item, list)):
+        try:
+            ## If type exists add definition to the node
+            if not ("type" in property): return None
+            
+            node["@type"] = self.schemaPrefix+":"+property["type"]
             return node
+        except:
+            traceback.print_exc()
+            print("It was not possible to create value node")
+            return None
+    
+    def create_object_node(self, property, node, ref=None):
+        try:
+            ## If object has not the properties key
+            if not (self.propertiesKey in property): return None
+            
+            properties = property[self.propertiesKey]
 
-        node[self.contextPrefix] = self.create_item_context(item=item)
-        return node
+            node[self.contextPrefix] = self.create_properties_context(properties=properties, parentRef=ref)
+            return node
+        except:
+            traceback.print_exc()
+            print("It was not possible to create object node")
+            return None
 
+    def create_array_node(self, property, node, ref=None):
+        try:
+            ## If array node has not the item key
+            if not (self.itemKey in property): return None
+            
+            item = property[self.itemKey]
+            node["@container"] = "@list" 
+
+            ## If list is with different types of data, dont specify a type
+            if(isinstance(item, list)):
+                return node
+
+            node[self.contextPrefix] = self.create_item_context(item=item, parentRef=ref)
+            return node
+        except:
+            traceback.print_exc()
+            print("It was not possible to create the array node")
+            return None
 
     
     """
@@ -146,66 +171,92 @@ class sammSchemaParser:
         HAS PROPERTIES
     """
     def create_properties_context(self, properties):
-        ## If no key is provided or node is empty
-        if(properties is None): return None
-        
-        ## If no key is found
-        if(not isinstance(properties, dict)): return None
-        
-        ## If no keys are provided in the properties
-        if(len(properties.keys())  == 0): return None
-        
-        ## Create new context dict from template
-        newContext = copy.deepcopy(self.contextTemplate)
-        oldProperties = copy.deepcopy(properties)
+        try:
+            ## If no key is provided or node is empty
+            if(properties is None): return None
+            
+            ## If no key is found
+            if(not isinstance(properties, dict)): return None
+            
+            ## If no keys are provided in the properties
+            if(len(properties.keys())  == 0): return None
+            
+            ## Create new context dict from template
+            newContext = copy.copy(self.contextTemplate)
+            oldProperties = copy.copy(properties)
 
-        ## Fill the node context with the properties
-        for propKey, prop in oldProperties.items():
-            newContext[propKey] = self.create_node_property(key=propKey, node=prop)
+            ## Fill the node context with the properties
+            for propKey, prop in oldProperties.items():
+                newContext[propKey] = self.create_node_property(key=propKey, node=prop)
 
-        ## Add context properties to the node context
-        return newContext
-
+            ## Add context properties to the node context
+            return newContext
+        except:
+            traceback.print_exc()
+            print("It was not possible to create properties context")
+            return None
+        
     def create_item_context(self, item):
-        ## If no key is provided or node is empty
-        if(item is None): return None
-        
-        if not (self.refKey in item):
-            return self.create_value_node(property=item)
-        
-        newContext = copy.deepcopy(self.contextTemplate)
-        ref = item[self.refKey]
-        nodeItem = self.expand_node(ref=ref)
+        try:
+            ## If no key is provided or node is empty
+            if(item is None): return None
+            
+            if not (self.refKey in item):
+                return self.create_value_node(property=item)
+            
+            newContext = copy.copy(self.contextTemplate)
+            ref = item[self.refKey]
+            nodeItem = self.expand_node(ref=ref)
 
-        ## If was not possible to get the reference return None
-        if nodeItem is None: return None
+            ## If was not possible to get the reference return None
+            if nodeItem is None: return None
 
-        newContext.update(nodeItem)
-        ## Overite the existing description of ref item
-        if "description" in item:
-            newContext["schema:definition"] = item["description"]
+            newContext.update(nodeItem)
+            ## Overite the existing description of ref item
 
-        return newContext
+            if not ("description" in item):
+                return newContext
+            
+            if not ("@context" in newContext):
+                newContext["@context"] = dict()
+
+            newContext["@context"]["@definition"]  = item["description"] 
+
+            return newContext
+        except:
+            traceback.print_exc()
+            print("It was not possible to create the item context")
+            return None
         
     def create_node_property(self, key, node):
-        ## If no key is provided or node is empty
-        if(key is None) or (node is None): return None
+        try:
+            ## If no key is provided or node is empty
+            if(key is None) or (node is None): return None
 
-        ## Ref property must exist in a property inside properties
-        if not (self.refKey in node): return None
+            ## Ref property must exist in a property inside properties
+            if not (self.refKey in node): return None
 
-        ## Get reference from the base schema
-        ref = node[self.refKey]
-        nodeProperty = self.expand_node(ref=ref, key=key)
+            ## Get reference from the base schema
+            ref = node[self.refKey]
+            nodeProperty = self.expand_node(ref=ref, key=key)
 
-        ## If was not possible to get the reference return None
-        if nodeProperty is None: return None
+            ## If was not possible to get the reference return None
+            if nodeProperty is None: return None
 
-        ## Overite the existing description of ref property
-        if "description" in node:
-            nodeProperty["schema:definition"] = node["description"]
+            ## Overite the existing description of ref property
+            if not ("description" in node):
+                return nodeProperty
+            
+            if not ("@context" in nodeProperty):
+                nodeProperty["@context"] = dict()
 
-        return nodeProperty
+            nodeProperty["@context"]["@definition"]  = node["description"]
+
+            return nodeProperty
+        except:
+            traceback.print_exc()
+            print("It was not possible to create node property")
+            return None
 
 
     def create_simple_node(self, property, key=None):
@@ -217,27 +268,50 @@ class sammSchemaParser:
         Returns:
             response: :dict: json ld simple node with the information of the node object
         """
-        ## If no key is provided or node is empty
-        if (property is None): return None
-        
-        ## Create new json ld simple node
-        newNode = dict()
+        try:
+            ## If no key is provided or node is empty
+            if (property is None): return None
+            
+            ## Create new json ld simple node
+            newNode = dict()
 
-        ## If the key is not none create a new node
-        if not (key is None):
-            newNode["@id"] = self.aspectPrefix+":"+key
-    
-        ## If description exists add definition to the node
-        if "description" in property:
-            newNode["schema:definition"] = property["description"]
-        
-        return newNode
-    
+            ## If the key is not none create a new node
+            if not (key is None):
+                newNode["@id"] = self.aspectPrefix+":"+key
+
+            ## If description exists add definition to the node
+
+            if not ("description" in property):
+                return newNode
+            
+            if not ("@context" in newNode):
+                newNode["@context"] = dict()
+
+            newNode["@context"]["@definition"] = property["description"]
+
+            return newNode
+        except:
+            traceback.print_exc()
+            print("It was not possible to create the simple node")
+            return None
 
     def get_schema_ref(self, ref):
-        if(not isinstance(ref, str)): return None
-        path = ref.removeprefix("#/")        
-        return op.get_attribute(self.baseSchema, attrPath=path, pathSep=self.pathSep, defaultValue=None)
+        """
+        Creates a simple node with key and object from a schema property
+        Receives:
+            key: :str: attribute key
+            node: :dict: contains the node object with or without description and type
+        Returns:
+            response: :dict: json ld simple node with the information of the node object
+        """
+        try:
+            if(not isinstance(ref, str)): return None
+            path = ref.removeprefix(self.pathSep) 
+            return op.get_attribute(self.baseSchema, attrPath=path, pathSep=self.pathSep, defaultValue=None)
+        except:
+            traceback.print_exc()
+            print("It was not possible to get schema reference")
+            return None
 
 if __name__ == '__main__':
     """Test of the parsing functionality of this class"""

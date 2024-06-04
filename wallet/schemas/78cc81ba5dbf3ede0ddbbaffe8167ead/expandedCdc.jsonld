@@ -1,0 +1,117 @@
+[
+    {
+      "https://www.w3.org/2018/credentials#credentialSubject": [
+        {
+          "aspect:catenaXId": [
+            {
+              "@type": "schema:string",
+              "@value": "urn:uuid:055c1128-0375-47c8-98de-7cf802c3241d"
+            }
+          ],
+          "aspect:childItems": [
+            {
+              "@list": [
+                {
+                  "aspect:businessPartner": [
+                    {
+                      "@type": "schema:string",
+                      "@value": "BPNL50096894aNXY"
+                    }
+                  ],
+                  "aspect:catenaXId": [
+                    {
+                      "@type": "schema:string",
+                      "@value": "urn:uuid:055c1128-0375-47c8-98de-7cf802c3241d"
+                    }
+                  ],
+                  "aspect:createdOn": [
+                    {
+                      "@type": "schema:string",
+                      "@value": "2022-02-03T14:48:54.709Z"
+                    }
+                  ],
+                  "aspect:hasAlternatives": [
+                    {
+                      "@type": "schema:boolean",
+                      "@value": false
+                    }
+                  ],
+                  "aspect:lastModifiedOn": [
+                    {
+                      "@type": "schema:string",
+                      "@value": "2022-02-03T14:48:54.709Z"
+                    }
+                  ],
+                  "aspect:quantity": [
+                    {
+                      "aspect:unit": [
+                        {
+                          "@type": "schema:string",
+                          "@value": "unit:piece"
+                        }
+                      ],
+                      "aspect:value": [
+                        {
+                          "@type": "schema:number",
+                          "@value": 20
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "@id": "https://tx-dpp.int.demo.catena-x.net/provider_backend/data/cx:mfg024:prt-30001",
+      "https://www.w3.org/2018/credentials#issuanceDate": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "@value": "2024-02-15T00:00:00.000Z"
+        }
+      ],
+      "https://www.w3.org/2018/credentials#issuer": [
+        {
+          "@id": "did:web:wallet-url.test.com:BPNL00000007RVTB"
+        }
+      ],
+      "https://w3id.org/security#proof": [
+        {
+          "@graph": [
+            {
+              "http://purl.org/dc/terms/created": [
+                {
+                  "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+                  "@value": "2024-02-15T12:35:39Z"
+                }
+              ],
+              "https://w3id.org/security#jws": [
+                {
+                  "@value": "eyJhbGciOiJFZERTQSJ9..4snTkqta4UwXIAtKJiIEDhiwmVtAC3kml0j7Wc25vmTbLbPlviXgL9he9X0A0xRTNlnsEwILf0NbPIyeztzJCw"
+                }
+              ],
+              "https://w3id.org/security#proofPurpose": [
+                {
+                  "@id": "https://w3id.org/security#assertionMethod"
+                }
+              ],
+              "@type": [
+                "https://w3id.org/security#JsonWebSignature2020"
+              ],
+              "https://w3id.org/security#verificationMethod": [
+                {
+                  "@id": "did:web:wallet-url.test.com:BPNL00000007RVTB#8f858500-7008-4b97-a8bb-605d4c8eca75"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "@type": [
+        "https://www.w3.org/2018/credentials#VerifiableCredential",
+        "CDC",
+        "DPP"
+      ]
+    }
+  ]

@@ -1,0 +1,133 @@
+{
+    "id": "https://tx-dpp.int.demo.catena-x.net/provider_backend/data/cx:mfg024:prt-30001",
+    "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://w3c.github.io/vc-jws-2020/contexts/v1",
+        {
+            "aspect": "urn:samm:io.catenax.single_level_bom_as_built:3.0.0#",
+            "schema": "https://schema.org/"
+        },
+        {
+            "@context": {
+                "@version": 1.1,
+                "catenaXId": {
+                    "@context": {
+                        "@definition": "The Catena-X ID of the given part (e.g. the component), valid for the Catena-X dataspace."
+                    },
+                    "@id": "aspect:catenaXId",
+                    "@type": "schema:string"
+                },
+                "childItems": {
+                    "@container": "@list",
+                    "@context": {
+                        "@context": {
+                            "@version": 1.1,
+                            "businessPartner": {
+                                "@context": {
+                                    "@definition": "The supplier of the given child item."
+                                },
+                                "@id": "aspect:businessPartner",
+                                "@type": "schema:string"
+                            },
+                            "catenaXId": {
+                                "@context": {
+                                    "@definition": "The Catena-X ID of the given part (e.g. the component), valid for the Catena-X dataspace."
+                                },
+                                "@id": "aspect:catenaXId",
+                                "@type": "schema:string"
+                            },
+                            "createdOn": {
+                                "@context": {
+                                    "@definition": "Timestamp when the relation between the parent item and the child item was created, e.g. when the serialized child part was assembled into the given part."
+                                },
+                                "@id": "aspect:createdOn",
+                                "@type": "schema:string"
+                            },
+                            "hasAlternatives": {
+                                "@context": {
+                                    "@definition": "Expresses whether the part is built-in or wether it is one of several options. If the value is false, it can be assumed this exact item is built-in. If the value is true, it is unknown wether this or an alternative item is built-in.\nThis is the case when, e.g. the same item is supplied by two suppliers, the item is only tracked by a customer part ID during assembly. Thus, these items can not be differentiated from each other.\n\n"
+                                },
+                                "@id": "aspect:hasAlternatives",
+                                "@type": "schema:boolean"
+                            },
+                            "id": "@id",
+                            "lastModifiedOn": {
+                                "@context": {
+                                    "@definition": "Timestamp when the assembly relationship between parent item and child item was last modified."
+                                },
+                                "@id": "aspect:lastModifiedOn",
+                                "@type": "schema:string"
+                            },
+                            "quantity": {
+                                "@context": {
+                                    "@definition": "Quantity of which the child item is assembled into the parent item. In general it is '1' for serialized parts.",
+                                    "@version": 1.1,
+                                    "id": "@id",
+                                    "type": "@type",
+                                    "unit": {
+                                        "@context": {
+                                            "@definition": "The unit of an item. Common units may be related to mass, count, linear, area, volume or misc."
+                                        },
+                                        "@id": "aspect:unit",
+                                        "@type": "schema:string"
+                                    },
+                                    "value": {
+                                        "@context": {
+                                            "@definition": "The quantity value associated with the unit."
+                                        },
+                                        "@id": "aspect:value",
+                                        "@type": "schema:number"
+                                    }
+                                },
+                                "@id": "aspect:quantity"
+                            },
+                            "type": "@type"
+                        },
+                        "@definition": "Set of child items, of which the given parent item was assembled by (one structural level down).",
+                        "@version": 1.1,
+                        "id": "@id",
+                        "type": "@type"
+                    },
+                    "@id": "aspect:childItems"
+                },
+                "id": "@id",
+                "type": "@type"
+            },
+            "@id": "SingleLevelBomAsBuilt"
+        }
+    ],
+    "type": [
+        "VerifiableCredential",
+        "CDC",
+        "DPP"
+    ],
+    "issuer": "did:web:wallet-url.test.com:BPNL00000007RVTB",
+    "parent": {
+        "@id": "did:web:dpp-test-system.com:BPNL000000000000:api:public:urn%3Auuid%3A1c5b6a7c-90d4-3481-0538-f134ff53076d",
+        "checksum": "64b1a523da600e8fc0018cf57b8f7756b83bb6e9b11c81b1c7444272fab239902321b1b6ae6624d6846fd010616ae98c118f12491f922badd64e58b782c6a115"
+    },
+    "credentialSubject": {
+        "catenaXId": "urn:uuid:055c1128-0375-47c8-98de-7cf802c3241d",
+        "childItems": [
+            {
+                "catenaXId": "urn:uuid:055c1128-0375-47c8-98de-7cf802c3241d",
+                "quantity": {
+                    "value": 20.0,
+                    "unit": "unit:piece"
+                },
+                "hasAlternatives": false,
+                "createdOn": "2022-02-03T14:48:54.709Z",
+                "businessPartner": "BPNL50096894aNXY",
+                "lastModifiedOn": "2022-02-03T14:48:54.709Z"
+            }
+        ]
+    },
+    "issuanceDate": "2024-02-15T00:00:00.000Z",
+    "proof": {
+        "type": "JsonWebSignature2020",
+        "created": "2024-02-15T12:35:39Z",
+        "verificationMethod": "did:web:wallet-url.test.com:BPNL00000007RVTB#8f858500-7008-4b97-a8bb-605d4c8eca75",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSJ9..4snTkqta4UwXIAtKJiIEDhiwmVtAC3kml0j7Wc25vmTbLbPlviXgL9he9X0A0xRTNlnsEwILf0NbPIyeztzJCw"
+    }
+}
