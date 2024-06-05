@@ -28,10 +28,12 @@ from datetime import datetime
 import traceback
 from utilities.httpUtils import HttpUtils
 from utilities.operators import op
+from utilities.cryptool import cryptool
 import yaml
 from pyld import jsonld
 import json
 from passport import generator, parser
+
 
 op.make_dir("logs")
 op.make_dir("test")
@@ -84,8 +86,8 @@ def check_health():
     })
 
 
-@app.post("/sign")
-def sign_credential():
+@app.post("/<bpn>/sign")
+def sign_credential(bpn):
     """
     Signs a credential using the private key provided in the configuration
 
@@ -95,11 +97,18 @@ def sign_credential():
         response: :vc: Signed verifiable credential
     """
     body = HttpUtils.get_body(request)
-    if(not body):
-       return jsonify(HttpUtils.get_error_response())
     
-    logger.debug("[] Credential Signed!")
-    return jsonify(body)
+    if(not op.path_exists("./keys")):
+        op.make_dir("keys")
+
+    basePath = "./keys/"+bpn
+    if(not op.path_exists(basePath)):
+        op.make_dir(basePath)
+
+    keyPath = "./keys/"+bpn
+
+    privateKey = cryptool.generateJwkPrivateKey()
+    return HttpUtils.response(cryptool.signVerifiableCredential(private_key=privateKey, data=body, issuer=bpn, id=cryptool.sha512(body)))
 
 @app.get("/schema/<semanticIdHash>")
 def schema(semanticIdHash):
@@ -122,6 +131,8 @@ def schema(semanticIdHash):
 
     return HttpUtils.get_error_response(message="Error when parsing schema!")
 
+
+
 @app.post("/parse")
 def parse():
     """
@@ -137,14 +148,33 @@ def parse():
         
         semanticId = op.get_attribute(body, "semanticId")
         schema = op.get_attribute(body, "schema")
-
+        aspectPrefix = op.get_attribute(body, "shortName")
         if not semanticId:
            HttpUtils.get_error_response(message="No semantic id specified", status=403)
         if not schema:
            HttpUtils.get_error_response(message="No schema specified", status=403)
 
         schemaParser = parser.sammSchemaParser()
-        return HttpUtils.response(schemaParser.schema_to_jsonld(semanticId=semanticId, schema=schema))
+        return HttpUtils.response(schemaParser.schema_to_jsonld(semanticId=semanticId, schema=schema, aspectPrefix=aspectPrefix))
+    except Exception as e:
+        logger.exception(e)
+        traceback.print_exc()
+
+    return HttpUtils.get_error_response(message="Error when parsing schema!")
+
+@app.post("/expand")
+def compact():
+    """
+    Generates a context for the verifiable credentials
+
+    Receives:
+        vc: :vc: unsigned verifiable credential
+    Returns:
+        response: :vc: schema
+    """
+    try:
+        body = HttpUtils.get_body(request)
+        return HttpUtils.response(jsonld.expand(body))
     except Exception as e:
         logger.exception(e)
         traceback.print_exc()

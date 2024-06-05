@@ -36,6 +36,8 @@ class sammSchemaParser:
         self.rootRef = "#"
         self.refKey = "$ref"
         self.pathSep = "#/"
+        self.actualPathSep = "/-/"
+        self.refPathSep="/"
         self.propertiesKey = "properties"
         self.itemKey = "items"
         self.schemaPrefix = "schema"
@@ -47,6 +49,7 @@ class sammSchemaParser:
         self.recursionDepth = 2
         self.depht = 0
         self.initialJsonLd = {
+            "@version": 1.1,
             self.schemaPrefix: "https://schema.org/"
         }
         self.contextTemplate = {
@@ -55,42 +58,57 @@ class sammSchemaParser:
             "type": "@type"
         }
     
-    def schema_to_jsonld(self, semanticId, schema):
+    def schema_to_jsonld(self, semanticId, schema, aspectPrefix="aspect"):
         try:
             self.baseSchema = copy.copy(schema)
             semanticParts = semanticId.split(self.rootRef)  
             if((len(semanticParts) < 2) or (semanticParts[1] == '')):
                 raise Exception("Invalid semantic id, missing the model reference!")
+            
+            if not(aspectPrefix is None):
+                self.aspectPrefix = aspectPrefix
 
+        
             jsonLdContext = self.create_node(property=schema)
             
             if jsonLdContext is None:
                 raise Exception("It was not possible to generated the json-ld!")
-            jsonLdContext["aspect"] = semanticParts[0] + self.rootRef
-            jsonLdContext["@id"] = semanticParts[1]
-            jsonLdContext.update(self.initialJsonLd)
-            return jsonLdContext
+            
+            responseContext = copy.copy(self.initialJsonLd)
+
+            semanticPath = semanticParts[0]
+            responseContext[self.aspectPrefix] = semanticPath + self.rootRef
+            aspectName = semanticParts[1]
+            jsonLdContext["@id"] = ":".join([self.aspectPrefix,aspectName])
+            responseContext[aspectName] = jsonLdContext
+            
+            if "description" in schema:
+                responseContext[aspectName]["@context"]["@definition"] = schema["description"]
+            return {
+                "@context": responseContext
+            }
         except:
             traceback.print_exc()
             raise Exception("It was not possible to create jsonld schema")
     
 
-    def expand_node(self, ref, key=None):
+    def expand_node(self, ref, actualref, key=None):
         try:
             ## Ref must not be None
             if (ref is None): return None
-
             ## Get expanded node
-            expandedNode = self.get_schema_ref(ref=ref)
-        
+            expandedNode = self.get_schema_ref(ref=ref, actualref=actualref)
+
+            newRef = self.actualPathSep.join([actualref, ref])
+
             if(expandedNode is None): return None
-            return self.create_node(property=expandedNode, key=key, ref=ref)
+            return self.create_node(property=expandedNode, actualref=newRef, key=key)
         except:
             traceback.print_exc()
             print("It was not possible to expand the node")
             return None
 
-    def create_node(self, property, key=None, ref=None):
+    def create_node(self, property, actualref="", key=None):
         try:
             ## Schema must be not none and type must be in the schema
             if (property is None) or (not "type" in property): return None
@@ -104,10 +122,10 @@ class sammSchemaParser:
             propertyType = property["type"]
 
             if propertyType == "object":
-                return self.create_object_node(property=property, node=node, ref=ref)
+                return self.create_object_node(property=property, node=node, actualref=actualref)
             
             if propertyType == "array":
-                return self.create_array_node(property=property, node=node, ref=ref)
+                return self.create_array_node(property=property, node=node, actualref=actualref)
             
             return self.create_value_node(property=property, node=node)
         except:
@@ -127,21 +145,21 @@ class sammSchemaParser:
             print("It was not possible to create value node")
             return None
     
-    def create_object_node(self, property, node, ref=None):
+    def create_object_node(self, property, node, actualref):
         try:
             ## If object has not the properties key
             if not (self.propertiesKey in property): return None
             
             properties = property[self.propertiesKey]
 
-            node[self.contextPrefix] = self.create_properties_context(properties=properties, parentRef=ref)
+            node[self.contextPrefix] = self.create_properties_context(properties=properties, actualref=actualref)
             return node
         except:
             traceback.print_exc()
             print("It was not possible to create object node")
             return None
 
-    def create_array_node(self, property, node, ref=None):
+    def create_array_node(self, property, node, actualref=None):
         try:
             ## If array node has not the item key
             if not (self.itemKey in property): return None
@@ -153,7 +171,10 @@ class sammSchemaParser:
             if(isinstance(item, list)):
                 return node
 
-            node[self.contextPrefix] = self.create_item_context(item=item, parentRef=ref)
+            if not (self.refKey in item):
+                return self.create_value_node(property=item, node=node)
+
+            node[self.contextPrefix] = self.create_item_context(item=item, actualref=actualref)
             return node
         except:
             traceback.print_exc()
@@ -161,16 +182,18 @@ class sammSchemaParser:
             return None
 
     
-    """
-        adds context to node with properties
-        node = {
-            @id -> asdsad
-        }
-        "OBJECT NODE" 
+    
+    def filter_key(self, key):
+        cleanKey = key
+        if ("@" in key): 
+            cleanKey = key.replace("@","")
+        
+        if (" " in key): 
+            cleanKey = key.replace(" ","-")
+        return cleanKey
 
-        HAS PROPERTIES
-    """
-    def create_properties_context(self, properties):
+
+    def create_properties_context(self, properties, actualref):
         try:
             ## If no key is provided or node is empty
             if(properties is None): return None
@@ -187,7 +210,13 @@ class sammSchemaParser:
 
             ## Fill the node context with the properties
             for propKey, prop in oldProperties.items():
-                newContext[propKey] = self.create_node_property(key=propKey, node=prop)
+                key = self.filter_key(key=propKey)
+                prop = self.create_node_property(key=key, node=prop, actualref=actualref)
+                if (prop is None):
+                    continue
+                
+
+                newContext[key] = prop
 
             ## Add context properties to the node context
             return newContext
@@ -196,17 +225,14 @@ class sammSchemaParser:
             print("It was not possible to create properties context")
             return None
         
-    def create_item_context(self, item):
+    def create_item_context(self, item, actualref):
         try:
             ## If no key is provided or node is empty
             if(item is None): return None
             
-            if not (self.refKey in item):
-                return self.create_value_node(property=item)
-            
             newContext = copy.copy(self.contextTemplate)
             ref = item[self.refKey]
-            nodeItem = self.expand_node(ref=ref)
+            nodeItem = self.expand_node(ref=ref, actualref=actualref)
 
             ## If was not possible to get the reference return None
             if nodeItem is None: return None
@@ -228,7 +254,7 @@ class sammSchemaParser:
             print("It was not possible to create the item context")
             return None
         
-    def create_node_property(self, key, node):
+    def create_node_property(self, key, node, actualref):
         try:
             ## If no key is provided or node is empty
             if(key is None) or (node is None): return None
@@ -238,7 +264,7 @@ class sammSchemaParser:
 
             ## Get reference from the base schema
             ref = node[self.refKey]
-            nodeProperty = self.expand_node(ref=ref, key=key)
+            nodeProperty = self.expand_node(ref=ref, actualref=actualref, key=key)
 
             ## If was not possible to get the reference return None
             if nodeProperty is None: return None
@@ -278,6 +304,7 @@ class sammSchemaParser:
             ## If the key is not none create a new node
             if not (key is None):
                 newNode["@id"] = self.aspectPrefix+":"+key
+            
 
             ## If description exists add definition to the node
 
@@ -295,7 +322,7 @@ class sammSchemaParser:
             print("It was not possible to create the simple node")
             return None
 
-    def get_schema_ref(self, ref):
+    def get_schema_ref(self, ref, actualref):
         """
         Creates a simple node with key and object from a schema property
         Receives:
@@ -306,8 +333,22 @@ class sammSchemaParser:
         """
         try:
             if(not isinstance(ref, str)): return None
+            
+            # If the actual reference is already found means we are going in a loop
+            if not(ref in actualref):     
+                path = ref.removeprefix(self.pathSep) 
+                return op.get_attribute(self.baseSchema, attrPath=path, pathSep=self.refPathSep, defaultValue=None)
+            
+            if(self.depht >= self.recursionDepth):
+                print(f"[WARNING] Infinite recursion detected in the following path: ref[{ref}] and acumulated ref[{actualref}]!")
+                self.depht=0
+                return None
+            
+            self.depht+=1
+            
             path = ref.removeprefix(self.pathSep) 
-            return op.get_attribute(self.baseSchema, attrPath=path, pathSep=self.pathSep, defaultValue=None)
+
+            return op.get_attribute(self.baseSchema, attrPath=path, pathSep=self.refPathSep, defaultValue=None)
         except:
             traceback.print_exc()
             print("It was not possible to get schema reference")

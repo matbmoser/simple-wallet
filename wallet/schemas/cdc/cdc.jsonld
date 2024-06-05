@@ -1,0 +1,27 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "cdc": "https://raw.githubusercontent.com/eclipse-tractusx/digital-product-pass/main/dpp-verification/schemas/cdc.jsonld#",
+        "schema": "https://schema.org/",
+        "CertifiedDataCredential": {
+            "@id": "cdc:CertifiedDataCredential",
+            "@context": {
+                "@protected": true,
+                "parent": {
+                    "@id": "cdc:parent",
+                    "@context":{
+                        "@definition": "Where the link for the previous node is stored",
+                        "id": {
+                            "@type": "schema:string",
+                            "@id": "cdc:@id"
+                        },
+                        "checksum": {
+                            "@type": "schema:string",
+                            "@id": "cdc:checksum"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
