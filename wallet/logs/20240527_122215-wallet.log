@@ -1,7 +1,0 @@
-2024-05-27 14:22:15 [INFO    ] [werkzeug       ] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://localhost:7777
-2024-05-27 14:22:15 [INFO    ] [werkzeug       ] [33mPress CTRL+C to quit[0m
-2024-05-27 14:22:35 [INFO    ] [werkzeug       ] 127.0.0.1 - - [27/May/2024 14:22:35] "GET /view/007f0c58176093b468b0c5d81addba938ed2313e2703290ea38f9be8f3cb6eec HTTP/1.1" 200 -
-2024-05-27 14:22:35 [INFO    ] [werkzeug       ] 127.0.0.1 - - [27/May/2024 14:22:35] "[35m[1mGET /view/schema_doc.css HTTP/1.1[0m" 500 -
-2024-05-27 14:22:35 [INFO    ] [werkzeug       ] 127.0.0.1 - - [27/May/2024 14:22:35] "[35m[1mGET /view/schema_doc.min.js HTTP/1.1[0m" 500 -
-2024-05-27 14:22:39 [INFO    ] [werkzeug       ] 127.0.0.1 - - [27/May/2024 14:22:39] "[35m[1mGET /view/007f0c58176093b468b0c5d81addba938ed2313e2703290ea38f9be8f3cb6eea HTTP/1.1[0m" 500 -

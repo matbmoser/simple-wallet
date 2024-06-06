@@ -33,11 +33,11 @@ import yaml
 from pyld import jsonld
 import json
 from passport import generator, parser
-
+import uuid
 
 op.make_dir("logs")
 op.make_dir("test")
-# Load the config file
+# Load the config file application/vc+ld+jwt
 with open('./logging_config.yml', 'rt') as f:
     # Read the yaml configuration
     config = yaml.safe_load(f.read())
@@ -85,6 +85,50 @@ def check_health():
         "timestamp": op.timestamp() 
     })
 
+@app.get("/<bpn>/did.json")
+def generate_public_key(bpn):
+    basePath = "./keys/"+bpn
+    publicKeyPath = basePath+"/public_key.pem"
+    metaInfoPath = basePath+"/meta.info"
+
+    if(not op.path_exists(publicKeyPath)):
+        return HttpUtils.get_error_response(status=404,message="This issuer does not exists!")
+
+    if(not op.path_exists(metaInfoPath)):
+        return HttpUtils.get_error_response(status=404,message="This issuer info does not exists!")
+
+    publicKey = cryptool.loadPublicKey(basePath)
+
+    publicKeyString= cryptool.publicKeyToString(public_key=publicKey)
+    did = cryptool.urlToDidWeb(url=request.base_url)
+    metaInfo = op.read_json_file(metaInfoPath)
+
+    if(not "method" in metaInfo):
+        return HttpUtils.get_error_response(status=404,message="The method does not exist!")
+
+    methodPathId = "#".join([did, metaInfo["method"]])
+
+    didDocument = {
+        "id": cryptool.urlToDidWeb(url=request.base_url),
+        "verificationMethod": [
+            {
+                "publicKeyJwt": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": publicKeyString
+                },
+                "controller": did, 
+                "id": methodPathId
+            }
+        ],
+        "@context": [
+            "https://www.w3.org/ns/did/v1",
+            "https://w3c.github.io/vc-jws-2020/contexts/v1"
+        ]
+    }
+    print(didDocument)
+    return HttpUtils.response(didDocument)
+
 
 @app.post("/<bpn>/sign")
 def sign_credential(bpn):
@@ -97,7 +141,7 @@ def sign_credential(bpn):
         response: :vc: Signed verifiable credential
     """
     body = HttpUtils.get_body(request)
-    
+
     if(not op.path_exists("./keys")):
         op.make_dir("keys")
 
@@ -105,10 +149,27 @@ def sign_credential(bpn):
     if(not op.path_exists(basePath)):
         op.make_dir(basePath)
 
-    keyPath = "./keys/"+bpn
+    keyPath = basePath+"/key.jwt"
 
-    privateKey = cryptool.generateJwkPrivateKey()
-    return HttpUtils.response(cryptool.signVerifiableCredential(private_key=privateKey, data=body, issuer=bpn, id=cryptool.sha512(body)))
+    if(not op.path_exists(keyPath)):
+        keyId = str(uuid.uuid4())
+        key = cryptool.generateJwkKey(keyId)
+        cryptool.storeJwkKey(key=key,keyPath=keyPath)
+    else:
+        key = cryptool.loadJwkKey(keyPath=keyPath)
+
+    if(key is None):
+        return HttpUtils.get_error_response(status=500,message="Internal Server Error")
+
+
+    publicKey = key.export_public(as_dict=True)
+    print(publicKey)
+    
+    vc = cryptool.issueJwtVerifiableCredential(url=request.root_url,methodId=publicKey["kid"], issuerId=bpn, private_key=key, credential=body)
+
+    cryptool.storeCredential(id=vc["id"].replace("urn:uuid:", ""), credential=vc, issuerId=bpn)
+
+    return HttpUtils.response(op.to_json(vc))
 
 @app.get("/schema/<semanticIdHash>")
 def schema(semanticIdHash):

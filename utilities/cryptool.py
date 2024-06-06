@@ -3,12 +3,14 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
-from datetime import datetime, timezone
-from operators import op
+from datetime import datetime, timezone, UTC, timedelta
+from utilities.operators import op
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, NoEncryption, PrivateFormat, PublicFormat
+from pyld import jsonld
 
-
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 """
 Class to encrypt and decrypt data using asimetric RSA cryptography
 Author: Mathias Brunkow Moser
@@ -19,6 +21,11 @@ import time
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
 import hashlib
+import sys 
+import uuid
+from didkit import issueCredential, keyToDID, keyToVerificationMethod
+from jwcrypto import jwk, jws
+from jwcrypto.common import json_encode
 
 class cryptool:
     @staticmethod
@@ -35,11 +42,141 @@ class cryptool:
             private_key_content, password=None, backend=default_backend())
             return private_key
 
+    @staticmethod
+    def generateJwkKey(kid,kty="OKP", crv="Ed25519"):
+        return jwk.JWK.generate(kty=kty, crv=crv, size=256, kid=kid)
 
     @staticmethod
-    def signVerifiableCredential(private_key, data, issuer, id):
+    def storeJwkKey(key, keyPath="./key.jwt"):
+        op.to_json_file(source_object=key.export(as_dict=True), json_file_path=keyPath)
+
+    @staticmethod
+    def loadJwkKey(keyPath):
+        return jwk.JWK.from_json(op.to_json(op.read_json_file(keyPath)))
+
+    @staticmethod
+    def signVerifiableCredential(private_key, data, issuer, id, exp):
         header = {
             'typ': 'JWT',
+            'alg': 'EdDSA',
+            'crv': 'Ed25519',
+            'kid': 'bf7f1756f8fcc493de7c2b1362f1bdc986e836e953f66bc622b097126f91abcb'
+        }
+        payload = {
+            'sub': 'data-wallet',
+            'exp': exp, #expire date
+            'iat': datetime.timestamp(), #issue date
+            'vc': data,
+            'jti': id, # Id from the ## uuid
+            'iss': issuer
+        }
+        to_sign = cryptool.encodeBase64NoPadding(json.dumps(header).encode('utf-8')) + b'.' + cryptool.encodeBase64NoPadding(json.dumps(payload).encode('utf-8'))
+        signature = cryptool.encodeBase64NoPadding(private_key.sign(to_sign))
+        jwt = (to_sign + b'.' + signature).decode()
+        return jwt
+
+    @staticmethod
+    def urlToDidWeb(url):
+        newUrl = url
+        newUrl = newUrl.replace("https://", "")
+        newUrl = newUrl.replace("http://", "")
+        newUrl = newUrl.replace("/", ":")
+        return "did:web:"+newUrl.removesuffix(":")
+
+    @staticmethod
+    def issueJwtVerifiableCredential(url, methodId, issuerId, private_key, credential):
+        didWeb = cryptool.urlToDidWeb(url=url)
+
+        issuance_date = datetime.now(UTC).replace(microsecond=0)
+        expiration_date = issuance_date + timedelta(weeks=24)
+        issuerDid = f"{didWeb}:{issuerId}"
+        id = uuid.uuid4()
+        credential["id"] = f"urn:uuid:{id}"
+        credential["issuer"] = issuerDid
+        credential["issuanceDate"] = issuance_date.isoformat() + "Z"
+        credential["expirationDate"] = expiration_date.isoformat() + "Z"
+        header = {
+            'typ': 'vc+ld',
+            'b64': False,
+            'crv': 'Ed25519'
+        }
+
+        
+        jwstoken = jws.JWS(payload=str(credential).encode("utf-8"))
+        jwstoken.add_signature(key=private_key, alg="EdDSA", header=json_encode({"kid": private_key.thumbprint()}))
+        
+        sig = jwstoken.serialize()
+        print(sig)
+        credential["proof"] = {
+            "type": "JsonWebSignature2020",
+            "proofPurpose": "assertionMethod",
+            "verificationMethod": f"{issuerDid}#{methodId}",
+            "created": issuance_date.isoformat() + "Z",
+            "jws": sig
+        }
+        return credential
+
+    @staticmethod
+    def issueVerifiableCredential(url, methodId, issuerId, private_key, credential):
+        didWeb = cryptool.urlToDidWeb(url=url)
+
+        issuance_date = datetime.now(UTC).replace(microsecond=0)
+        expiration_date = issuance_date + timedelta(weeks=24)
+        issuerDid = f"{didWeb}:{issuerId}"
+        id = uuid.uuid4()
+        credential["id"] = f"urn:uuid:{id}"
+        credential["issuer"] = issuerDid
+        credential["issuanceDate"] = issuance_date.isoformat() + "Z"
+        credential["expirationDate"] = expiration_date.isoformat() + "Z"
+        header = {
+            'typ': 'vc+ld',
+            'b64': False,
+            'crv': 'Ed25519'
+        }
+        to_sign = cryptool.encodeBase64NoPadding(json.dumps(header).encode('utf-8')) + b'.' + cryptool.encodeBase64NoPadding(json.dumps(credential).encode('utf-8'))
+        signature = cryptool.encodeBase64NoPadding(private_key.sign(to_sign))
+        jws = (cryptool.encodeBase64NoPadding(json.dumps(header).encode('utf-8')) + b'..' + signature).decode()
+        credential["proof"] = {
+            "type": "JsonWebSignature2020",
+            "proofPurpose": "assertionMethod",
+            "verificationMethod": f"{issuerDid}#{methodId}",
+            "created": issuance_date.isoformat() + "Z",
+            "jws": jws
+        }
+        return credential
+
+
+    @staticmethod
+    def signJwsVerifiableCredential(request,private_key, data):
+        header = {
+            'typ': 'vc+ld',
+            'b64': False,
+            'crv': 'Ed25519'
+        }
+        to_sign = cryptool.encodeBase64NoPadding(json.dumps(header).encode('utf-8')) + b'.' + cryptool.encodeBase64NoPadding(json.dumps(data).encode('utf-8'))
+        signature = cryptool.encodeBase64NoPadding(private_key.sign(to_sign))
+        jwt = (cryptool.encodeBase64NoPadding(json.dumps(header).encode('utf-8')) + b'..' + signature).decode()
+        return jwt
+
+
+    @staticmethod
+    def signVerifiableCredential(private_key, data):
+        return cryptool.encodeBase64NoPadding(private_key.sign(json.dumps(data).encode('utf-8'))).decode()
+
+    @staticmethod
+    def signJwtVerifiableCredential(private_key, data, issuer, id):
+        
+        expanded = None
+        try:
+            expanded = jsonld.expand(data)
+        except:
+            raise Exception('Impossible to sign the verifiable credential because it can not be expanded!')    
+        
+        if(expanded is None):
+            raise Exception('No content was expanded in the verifiable credential!')    
+
+        header = {
+            'typ': 'vc+jwt',
             'alg': 'EdDSA',
             'crv': 'Ed25519',
         }
@@ -49,8 +186,8 @@ class cryptool:
             'jti': id, # Id from the 
             'iss': issuer
         }
-        to_sign = cryptool.b64encode_nopadding(json.dumps(header).encode('utf-8')) + b'.' + cryptool.b64encode_nopadding(json.dumps(payload).encode('utf-8'))
-        signature = cryptool.b64encode_nopadding(private_key.sign(to_sign))
+        to_sign = cryptool.encodeBase64NoPadding(json.dumps(header).encode('utf-8')) + b'.' + cryptool.encodeBase64NoPadding(json.dumps(payload).encode('utf-8'))
+        signature = cryptool.encodeBase64NoPadding(private_key.sign(to_sign))
         jwt = (to_sign + b'.' + signature).decode()
         return jwt
 
@@ -58,13 +195,19 @@ class cryptool:
     def generateJwkPrivateKey():
         return Ed25519PrivateKey.generate()
     
-    def privateJwkKeyToString(private_key):
+    @staticmethod
+    def privateJwkKeyToPemString(private_key):
         return private_key.private_bytes(
                 encoding=serialization.Encoding.PEM,
-                format=serialization.PrivateFormat.TraditionalOpenSSL,
+                format=serialization.PrivateFormat.PKCS8,
                 encryption_algorithm=serialization.NoEncryption()
             )
-
+    @staticmethod
+    def publicJwkKeyToPemString(public_key):
+        return public_key.public_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo
+            )
 
     @staticmethod
     def generatePrivateKey(keySize=2048, publicExponent=65537):
@@ -80,7 +223,7 @@ class cryptool:
     
     @staticmethod  
     def sha512(input):
-        return hashlib.sha512(input).hexdigest()
+        return hashlib.sha512(str(input).encode('utf-8')).hexdigest()
 
     @staticmethod
     def generateKeys(keySize=2048, publicExponent=65537, string=False):
@@ -115,19 +258,74 @@ class cryptool:
             format=serialization.PublicFormat.SubjectPublicKeyInfo
             )
     
-    @staticmethod
-    def storeKeys(public_key, private_key, dir="."):
 
-        with open(f"{dir}/private_key.pem", 'wb') as f:
+    @staticmethod
+    def storePrivateKey(private_key, keysDir="./keys"):
+        if(not op.path_exists(keysDir)):
+            op.make_dir(keysDir)
+        with open(f"{keysDir}/private_key.pem", 'wb') as f:
             f.write(private_key)
-        
-        with open(f"{dir}/public_key.pem", 'wb') as f:
+
+    @staticmethod
+    def storePublicKey(public_key, keysDir="./keys"):
+        if(not op.path_exists(keysDir)):
+            op.make_dir(keysDir)
+        with open(f"{keysDir}/public_key.pem", 'wb') as f:
             f.write(public_key)
-            
+
     
     @staticmethod
-    def loadKeys(id):
-        keysDir = f"keys/{id}"
+    def storeCredential(id, credential, issuerId, dir="./credentials"):
+        if(not op.path_exists(dir)):
+            op.make_dir(dir)
+
+        completeDir = f"{dir}/{issuerId}"
+        if(not op.path_exists(completeDir)):
+            op.make_dir(completeDir)
+
+        op.to_json_file(credential, f"{completeDir}/{id}.jsonld")
+
+
+
+    @staticmethod
+    def storeKeys(public_key, private_key, keysDir="."):
+
+        with open(f"{keysDir}/private_key.pem", 'wb') as f:
+            f.write(private_key)
+        
+        with open(f"{keysDir}/public_key.pem", 'wb') as f:
+            f.write(public_key)
+            
+    @staticmethod
+    def loadPrivateKey(keysDir="./keys"):
+        if(not op.path_exists(keysDir)):
+            op.print_log(logType="CRITICAL", messageStr=f"Path [{keysDir}] not found. cryptool.loadKeys()")
+            return None, None
+        
+        with open(f"{keysDir}/private_key.pem", "rb") as key_file:
+                private_key = serialization.load_pem_private_key(
+                    key_file.read(),
+                    password=None,
+                    backend=default_backend()
+                )
+        return private_key
+    
+    @staticmethod
+    def loadPublicKey(keysDir="./keys"):
+        if(not op.path_exists(keysDir)):
+            op.print_log(logType="CRITICAL", messageStr=f"Path [{keysDir}] not found. cryptool.loadKeys()")
+            return None, None
+        
+        with open(f"{keysDir}/public_key.pem", "rb") as key_file:
+                private_key = serialization.load_pem_public_key(
+                    key_file.read(),
+                    backend=default_backend()
+                )
+        return private_key
+    
+    @staticmethod
+    def loadKeys(id, base_dir="./keys"):
+        keysDir = base_dir+"/"+id
         if(not op.pathExists(keysDir)):
             op.printLog(logType="CRITICAL", messageStr=f"Path [{keysDir}] not found. cryptool.loadKeys()")
             return None, None
@@ -144,6 +342,7 @@ class cryptool:
                     backend=default_backend()
                 )
         return private_key, public_key
+    
     
     @staticmethod
     def loadPublicKeyFromString(stringKey):

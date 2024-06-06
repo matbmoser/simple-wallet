@@ -1,4 +1,0 @@
-2024-05-27 13:31:29 [INFO    ] [werkzeug       ] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://localhost:7777
-2024-05-27 13:31:29 [INFO    ] [werkzeug       ] [33mPress CTRL+C to quit[0m
-2024-05-27 13:31:32 [INFO    ] [werkzeug       ] 127.0.0.1 - - [27/May/2024 13:31:32] "[35m[1mPOST /context HTTP/1.1[0m" 500 -

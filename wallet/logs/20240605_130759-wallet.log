@@ -1,9 +1,0 @@
-2024-06-05 15:07:59 [INFO    ] [werkzeug       ] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://localhost:7777
-2024-06-05 15:07:59 [INFO    ] [werkzeug       ] [33mPress CTRL+C to quit[0m
-2024-06-05 15:08:27 [DEBUG   ] [urllib3.connectionpool] Starting new HTTPS connection (1): www.w3.org:443
-2024-06-05 15:08:28 [DEBUG   ] [urllib3.connectionpool] https://www.w3.org:443 "GET /2018/credentials/v1 HTTP/1.1" 200 None
-2024-06-05 15:08:28 [DEBUG   ] [urllib3.connectionpool] Starting new HTTPS connection (1): w3c.github.io:443
-2024-06-05 15:08:28 [DEBUG   ] [urllib3.connectionpool] https://w3c.github.io:443 "GET /vc-jws-2020/contexts/v1 HTTP/1.1" 301 162
-2024-06-05 15:08:28 [DEBUG   ] [urllib3.connectionpool] https://w3c.github.io:443 "GET /vc-jws-2020/contexts/v1/ HTTP/1.1" 200 491
-2024-06-05 15:08:29 [INFO    ] [werkzeug       ] 127.0.0.1 - - [05/Jun/2024 15:08:29] "POST /expand HTTP/1.1" 200 -
