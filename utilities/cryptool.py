@@ -5,17 +5,20 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from datetime import datetime, timezone, UTC, timedelta
 from utilities.operators import op
+from utilities.httpUtils import HttpUtils
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, NoEncryption, PrivateFormat, PublicFormat
 from pyld import jsonld
+from urllib.parse import urljoin, urlparse
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+    
 """
 Class to encrypt and decrypt data using asimetric RSA cryptography
 Author: Mathias Brunkow Moser
 """
-from base64 import urlsafe_b64encode
+from base64 import urlsafe_b64encode, urlsafe_b64decode
 import json
 import time
 from cryptography.hazmat.backends import default_backend
@@ -26,11 +29,23 @@ import uuid
 from didkit import issueCredential, keyToDID, keyToVerificationMethod
 from jwcrypto import jwk, jws
 from jwcrypto.common import json_encode
+from did_resolver import Resolver
+import logging
+
+logger = logging.getLogger('staging')
+
+SUPPORTED_VERIFICATION_TYPES = ["JsonWebSignature2020"]
+
+import copy
 
 class cryptool:
     @staticmethod
     def encodeBase64NoPadding(to_encode):
         return urlsafe_b64encode(to_encode).rstrip(b'=')
+
+    @staticmethod
+    def decodeBase64NoPadding(to_decode):
+        return urlsafe_b64decode(to_decode.encode("utf-8"))
 
     @staticmethod
     def generateJwkPublicKey(private_key):
@@ -77,65 +92,90 @@ class cryptool:
 
     @staticmethod
     def urlToDidWeb(url):
+        """
+            Created according to: https://w3c-ccg.github.io/did-method-web/#did-method-operations
+        """
         newUrl = url
         newUrl = newUrl.replace("https://", "")
         newUrl = newUrl.replace("http://", "")
+        newUrl = newUrl.replace(":", "%3A")
         newUrl = newUrl.replace("/", ":")
         return "did:web:"+newUrl.removesuffix(":")
 
     @staticmethod
-    def issueJwtVerifiableCredential(url, methodId, issuerId, private_key, credential):
-        didWeb = cryptool.urlToDidWeb(url=url)
-
-        issuance_date = datetime.now(UTC).replace(microsecond=0)
-        expiration_date = issuance_date + timedelta(weeks=24)
-        issuerDid = f"{didWeb}:{issuerId}"
-        id = uuid.uuid4()
-        credential["id"] = f"urn:uuid:{id}"
-        credential["issuer"] = issuerDid
-        credential["issuanceDate"] = issuance_date.isoformat() + "Z"
-        credential["expirationDate"] = expiration_date.isoformat() + "Z"
-        header = {
-            'typ': 'vc+ld',
-            'b64': False,
-            'crv': 'Ed25519'
-        }
-
-        
-        jwstoken = jws.JWS(payload=str(credential).encode("utf-8"))
-        jwstoken.add_signature(key=private_key, alg="EdDSA", header=json_encode({"kid": private_key.thumbprint()}))
-        
-        sig = jwstoken.serialize()
-        print(sig)
-        credential["proof"] = {
-            "type": "JsonWebSignature2020",
-            "proofPurpose": "assertionMethod",
-            "verificationMethod": f"{issuerDid}#{methodId}",
-            "created": issuance_date.isoformat() + "Z",
-            "jws": sig
-        }
-        return credential
-
+    def resolveDidWeb(did_web):
+        """
+            Resolved according to: https://w3c-ccg.github.io/did-method-web/#did-method-operations
+        """
+        newUrl = did_web
+        newUrl = newUrl.replace("did:web:", "")
+        newUrl = newUrl.replace(":","/")
+        newUrl = newUrl.replace("%3A",":")
+        if("localhost" in newUrl) or ("127.0.0.1" in newUrl):
+            newUrl = "http://" + newUrl
+        else:
+            newUrl = "https://" + newUrl
+    
+        path = urlparse(newUrl).path
+        if(path is None) or (path == ""):
+            path = "/.well-known"
+        newUrl = urljoin(newUrl, path) 
+        return newUrl + "/did.json"
+    
     @staticmethod
-    def issueVerifiableCredential(url, methodId, issuerId, private_key, credential):
-        didWeb = cryptool.urlToDidWeb(url=url)
+    def issueVerifiableCredential(walletUrl, methodId, issuerId, expirationTimedelta, private_key, credential):
+        ## Generate the DID web for the wallet url
+        didWeb = cryptool.urlToDidWeb(url=walletUrl)
 
+        ## Expand verifiable credential to check if its a valid json-ld
+        try:
+            expandedCredential = jsonld.expand(credential)
+        except:
+            raise Exception("It was not possible to expand the json-ld credential! Invalid JSON-LD!")
+
+        ## Generate checksum for the expanded credential
+        checksum = cryptool.sha512(expandedCredential)
+
+        ## Issuance date and expiration date
         issuance_date = datetime.now(UTC).replace(microsecond=0)
-        expiration_date = issuance_date + timedelta(weeks=24)
+        expiration_date = issuance_date + expirationTimedelta
+
+        ## Prepare the issuer id and the id from the credential
         issuerDid = f"{didWeb}:{issuerId}"
-        id = uuid.uuid4()
-        credential["id"] = f"urn:uuid:{id}"
-        credential["issuer"] = issuerDid
-        credential["issuanceDate"] = issuance_date.isoformat() + "Z"
-        credential["expirationDate"] = expiration_date.isoformat() + "Z"
+        
+        ## Add the information to the credential
+        credentialAttributes = {
+            "id": f"urn:uuid:{id}",
+            "issuer": issuerDid,
+            "issuanceDate": issuance_date.isoformat() + "Z",
+            "expirationDate": expiration_date.isoformat() + "Z"
+        }
+
+        credential.update(credentialAttributes)
+
+        ## Prepare the header with the specification
         header = {
             'typ': 'vc+ld',
             'b64': False,
             'crv': 'Ed25519'
         }
+
+        ## Prepare the content to sign
         to_sign = cryptool.encodeBase64NoPadding(json.dumps(header).encode('utf-8')) + b'.' + cryptool.encodeBase64NoPadding(json.dumps(credential).encode('utf-8'))
         signature = cryptool.encodeBase64NoPadding(private_key.sign(to_sign))
-        jws = (cryptool.encodeBase64NoPadding(json.dumps(header).encode('utf-8')) + b'..' + signature).decode()
+
+
+        ## Build the payload of the signature
+        payload = cryptool.encodeBase64NoPadding(json.dumps({
+            "exp": expiration_date.timestamp(),
+            "iss": issuerDid,
+            "checksum": checksum
+        }).encode('utf-8'))
+
+        ## Build the jws signature
+        jws = (cryptool.encodeBase64NoPadding(json.dumps(header).encode('utf-8')) + b'.' + payload + b'.' + signature).decode()
+
+        ## Add the information to the proof
         credential["proof"] = {
             "type": "JsonWebSignature2020",
             "proofPurpose": "assertionMethod",
@@ -144,6 +184,112 @@ class cryptool:
             "jws": jws
         }
         return credential
+
+    @staticmethod
+    def verifyVerifiableCredential(credential):
+        global SUPPORTED_VERIFICATION_TYPES
+
+        if("proof" not in credential):
+            raise Exception("Proof is not available in the Verifiable Credential!")
+
+        if("expirationDate" in credential):
+            currentDate = datetime.now(UTC)
+            expirationDate = datetime.fromisoformat(credential["expirationDate"])
+            if(expirationDate is None):
+                raise Exception("Invalid expiration date format!")
+            
+            if(currentDate >= expirationDate):
+                raise Exception("The verifiable credential is not valid! Expiration date has passed!")
+
+        proof = credential["proof"]
+        if("type" not in proof):
+            raise Exception("Verification Signature Type not found in the Verifiable Credential!")
+        
+        verificationType = proof["type"]
+        if not (verificationType in SUPPORTED_VERIFICATION_TYPES):
+            raise Exception("Verification Signature Type is not supported!")
+        
+        try:
+            if(verificationType == "JsonWebSignature2020"):
+                resolution = cryptool.verifyJwsProof(proof, payload=credential)
+            else:
+                raise Exception("Verification Signature Type is not supported!")
+
+            if(not resolution):
+                raise Exception(f"It was not possible to verify the signature! Verifiable Credential is not valid!")
+            
+        except Exception as e:
+            raise Exception(f"It was not possible to verify the signature!  REASON: [{e}]")
+
+
+    @staticmethod
+    def verifyJwsProof(proof, payload):
+        if("jws" not in proof):
+            raise Exception("Verification Signature is not available")
+
+        signature = proof["jws"]
+        if(signature == ""):
+            raise Exception("Verification Signature is empty!")
+        
+        if("verificationMethod" not in proof):
+            raise Exception("Verification Method not found in the Verifiable Credential!")
+        
+        didMethod = proof["verificationMethod"]
+        resolvedUrl = cryptool.resolveDidWeb(did_web=didMethod)
+        try:
+            content = HttpUtils.do_get(url=resolvedUrl, allow_redirects=True)
+        except:
+            raise Exception(f"The content from the DID [{didMethod}] was not found in resolved URL [{resolvedUrl}]!")
+        
+        if(content is None):
+            raise Exception(f"No resposne received from resolved URL [{resolvedUrl}]!")
+        
+        if(content.content is None) or (content.content == ""):
+            raise Exception(f"No DID content received from resolved URL [{resolvedUrl}]!")
+
+        try:
+            didDocument = op.json_string_to_object(content.content)
+        except:
+            raise Exception(f"The DID document is not a valid JSON!")
+        if(didDocument is None):
+            raise Exception(f"The DID document its not available!")
+        
+        if not("verificationMethod" in didDocument):
+            raise Exception(f"The DID document has no verification method available!")
+
+        publicKeysMethods = didDocument["verificationMethod"]
+        publicKeyMethod = op.search_element_by_field(array=publicKeysMethods,id=didMethod, field="id")
+        if (publicKeyMethod is None):
+            raise Exception(f"The public key method is not found in the DID document public keys list!")
+
+        if not("type" in publicKeyMethod):
+            raise Exception(f"No type found in the public key method!")
+        
+        if(publicKeyMethod["type"] != "JsonWebKey2020"):
+            raise Exception(f"Public key method is not supported!")
+        
+        if not("publicKeyJwt" in publicKeyMethod):
+            raise Exception(f"No public key object found in the public key method!")
+        
+        publicKeyJwt = publicKeyMethod["publicKeyJwt"]
+        
+        key = jwk.JWK.from_json(key=op.to_json(publicKeyJwt))
+
+        JWSignature = signature.split(".")
+        print(JWSignature)
+
+        credential = copy.deepcopy(payload)
+        del credential["proof"]
+        credentialExpanded = jsonld.expand(credential)
+        hashedProof = cryptool.sha512(credentialExpanded)
+        print(hashedProof)
+
+        print(cryptool.decodeBase64NoPadding(JWSignature[0]))
+        print(cryptool.decodeBase64NoPadding(JWSignature[1]))
+        print(cryptool.decodeBase64NoPadding(JWSignature[2]))
+            
+        
+
 
 
     @staticmethod

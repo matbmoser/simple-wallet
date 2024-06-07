@@ -223,3 +223,8 @@ class op:
         
         # print message on console
         print("[" + info_level + "] - " + message)
+    
+    
+    @staticmethod
+    def search_element_by_field(array, id, field="id"):
+        return next((x for x in array if x[field] == id), None)

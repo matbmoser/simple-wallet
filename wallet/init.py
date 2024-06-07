@@ -16,7 +16,6 @@ sys.path.append("../")
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-
 from rdflib import Graph
 
 # Set up imports configuration
@@ -24,7 +23,7 @@ import argparse
 import requests
 import logging.config
 import logging
-from datetime import datetime
+from datetime import datetime,timedelta
 import traceback
 from utilities.httpUtils import HttpUtils
 from utilities.operators import op
@@ -64,7 +63,7 @@ def get_arguments():
     parser.add_argument("--host", default="localhost", \
                         help="The server host where it will be available", required=False, type=str)
     
-    parser.add_argument("--debug", default=False, action="store_true", \
+    parser.add_argument("--debug", default=False, action="store_false", \
                     help="Enable and disable the debug", required=False)
     
     args = parser.parse_args()
@@ -88,37 +87,35 @@ def check_health():
 @app.get("/<bpn>/did.json")
 def generate_public_key(bpn):
     basePath = "./keys/"+bpn
-    publicKeyPath = basePath+"/public_key.pem"
-    metaInfoPath = basePath+"/meta.info"
-
-    if(not op.path_exists(publicKeyPath)):
+    keyPath = basePath+"/key.jwt"
+    
+    if(not op.path_exists(keyPath)):
         return HttpUtils.get_error_response(status=404,message="This issuer does not exists!")
 
-    if(not op.path_exists(metaInfoPath)):
-        return HttpUtils.get_error_response(status=404,message="This issuer info does not exists!")
+    key = cryptool.loadJwkKey(keyPath=keyPath)
 
-    publicKey = cryptool.loadPublicKey(basePath)
+    if(key is None):
+        return HttpUtils.get_error_response(status=500,message="Internal Server Error")
+    
+    publicKey = key.export_public(as_dict=True)
 
-    publicKeyString= cryptool.publicKeyToString(public_key=publicKey)
-    did = cryptool.urlToDidWeb(url=request.base_url)
-    metaInfo = op.read_json_file(metaInfoPath)
+    rootdid = cryptool.urlToDidWeb(url=request.root_url)
 
-    if(not "method" in metaInfo):
+    did = ":".join([rootdid, bpn])
+
+    if(not "kid" in publicKey):
         return HttpUtils.get_error_response(status=404,message="The method does not exist!")
 
-    methodPathId = "#".join([did, metaInfo["method"]])
+    methodPathId = "#".join([did, publicKey["kid"]])
 
     didDocument = {
-        "id": cryptool.urlToDidWeb(url=request.base_url),
+        "id": did,
         "verificationMethod": [
             {
-                "publicKeyJwt": {
-                    "kty": "OKP",
-                    "crv": "Ed25519",
-                    "x": publicKeyString
-                },
+                "publicKeyJwt": publicKey,
                 "controller": did, 
-                "id": methodPathId
+                "id": methodPathId,
+                "type": "JsonWebKey2020"
             }
         ],
         "@context": [
@@ -126,9 +123,12 @@ def generate_public_key(bpn):
             "https://w3c.github.io/vc-jws-2020/contexts/v1"
         ]
     }
-    print(didDocument)
-    return HttpUtils.response(didDocument)
+    return HttpUtils.response(op.to_json(didDocument))
 
+@app.post("/verify")
+def verify_credential():
+    body = HttpUtils.get_body(request)
+    return cryptool.verifyJwsProof(proof=body["proof"], payload=body)
 
 @app.post("/<bpn>/sign")
 def sign_credential(bpn):
@@ -140,36 +140,63 @@ def sign_credential(bpn):
     Returns:
         response: :vc: Signed verifiable credential
     """
-    body = HttpUtils.get_body(request)
+    try:
+        body = HttpUtils.get_body(request)
+        
+        if(not op.path_exists("./keys")):
+            op.make_dir("keys")
 
-    if(not op.path_exists("./keys")):
-        op.make_dir("keys")
+        basePath = "./keys/"+bpn
+        if(not op.path_exists(basePath)):
+            op.make_dir(basePath)
 
-    basePath = "./keys/"+bpn
-    if(not op.path_exists(basePath)):
-        op.make_dir(basePath)
+        keyPath = basePath+"/key.jwt"
+        if(not op.path_exists(keyPath)):
+            keyId = str(uuid.uuid4())
+            key = cryptool.generateJwkKey(keyId)
+            cryptool.storeJwkKey(key=key,keyPath=keyPath)
+            logger.info(f"Created JWT Key with id [{keyId}] for [{bpn}]!")
+        else:
+            key = cryptool.loadJwkKey(keyPath=keyPath)
+        
+        privateKeyPath = basePath+"/private_key.pem"
+        if(not op.path_exists(privateKeyPath)):
+            pem = key.export_to_pem(True, None)
+            cryptool.storePrivateKey(private_key=pem,keysDir=basePath)
+            private_key = cryptool.loadPrivateKeyFromString(pem)
+        else:
+            private_key = cryptool.loadPrivateKey(keysDir=basePath)
 
-    keyPath = basePath+"/key.jwt"
+        if(key is None):
+            return HttpUtils.get_error_response(status=500,message="Internal Server Error")
+        if(private_key is None):
+            return HttpUtils.get_error_response(status=500,message="Internal Server Error")
 
-    if(not op.path_exists(keyPath)):
-        keyId = str(uuid.uuid4())
-        key = cryptool.generateJwkKey(keyId)
-        cryptool.storeJwkKey(key=key,keyPath=keyPath)
-    else:
-        key = cryptool.loadJwkKey(keyPath=keyPath)
+        publicKey = key.export_public(as_dict=True)
 
-    if(key is None):
-        return HttpUtils.get_error_response(status=500,message="Internal Server Error")
+        try:
+            vc = cryptool.issueVerifiableCredential(
+                    walletUrl=request.root_url,                              
+                    methodId=publicKey["kid"],
+                    expirationTimedelta=timedelta(weeks=24),
+                    issuerId=bpn, 
+                    private_key=private_key, 
+                    credential=body
+                )
+        except Exception as e:
+            return HttpUtils.get_error_response(status=500,message=str(e))
+        
+        cryptool.storeCredential(id=vc["id"].replace("urn:uuid:", ""), credential=vc, issuerId=bpn)
 
+        logger.info(msg=f"Verifiable Credential with ID: [{str(vc["id"])}] was issued by IssuerId: [{str(bpn)}]!")
 
-    publicKey = key.export_public(as_dict=True)
-    print(publicKey)
-    
-    vc = cryptool.issueJwtVerifiableCredential(url=request.root_url,methodId=publicKey["kid"], issuerId=bpn, private_key=key, credential=body)
+        return HttpUtils.response(op.to_json(vc))
 
-    cryptool.storeCredential(id=vc["id"].replace("urn:uuid:", ""), credential=vc, issuerId=bpn)
+    except Exception as e:
+        logger.exception(str(e))
+        traceback.print_exc()
 
-    return HttpUtils.response(op.to_json(vc))
+    return HttpUtils.get_error_response(message="Error when parsing schema!")
 
 @app.get("/schema/<semanticIdHash>")
 def schema(semanticIdHash):
@@ -187,7 +214,7 @@ def schema(semanticIdHash):
            HttpUtils.get_error_response(message="Schema does not exist!", status=404)
         return HttpUtils.response(generator.schema_file_to_html(file_path=filePath), content_type="text/html")
     except Exception as e:
-        logger.exception(e)
+        logger.exception(str(e))
         traceback.print_exc()
 
     return HttpUtils.get_error_response(message="Error when parsing schema!")
@@ -218,7 +245,7 @@ def parse():
         schemaParser = parser.sammSchemaParser()
         return HttpUtils.response(schemaParser.schema_to_jsonld(semanticId=semanticId, schema=schema, aspectPrefix=aspectPrefix))
     except Exception as e:
-        logger.exception(e)
+        logger.exception(str(e))
         traceback.print_exc()
 
     return HttpUtils.get_error_response(message="Error when parsing schema!")
@@ -237,7 +264,7 @@ def compact():
         body = HttpUtils.get_body(request)
         return HttpUtils.response(jsonld.expand(body))
     except Exception as e:
-        logger.exception(e)
+        logger.exception(str(e))
         traceback.print_exc()
 
     return HttpUtils.get_error_response(message="Error when parsing schema!")
@@ -259,7 +286,7 @@ def context():
             return jsonify(HttpUtils.get_error_response())
         return HttpUtils.response(generator.schema_to_context(body))
     except Exception as e:
-        logger.exception(e)
+        logger.exception(str(e))
         traceback.print_exc()
 
     return HttpUtils.get_error_response(message="Error when parsing schema!")
@@ -280,7 +307,7 @@ def ttl():
             return jsonify(HttpUtils.get_error_response())
         return HttpUtils.response(generator.turtle_to_jsonld(body))
     except Exception as e:
-        logger.exception(e)
+        logger.exception(str(e))
         traceback.print_exc()
 
     return HttpUtils.get_error_response(message="Error when parsing schema!")
@@ -290,6 +317,8 @@ if __name__ == '__main__':
     # Initialize the server environment and get the comand line arguments
     args = get_arguments()
     # Configure the logging configuration depending on the configuration stated
+    log = logging.getLogger('werkzeug')
+    log.disabled = True
     logger = logging.getLogger('staging')
     if(args.debug):
         logger = logging.getLogger('development')
