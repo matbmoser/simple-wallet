@@ -91,7 +91,7 @@ def generate_public_key(bpn):
     
     if(not op.path_exists(keyPath)):
         return HttpUtils.get_error_response(status=404,message="This issuer does not exists!")
-
+    
     key = cryptool.loadJwkKey(keyPath=keyPath)
 
     if(key is None):
@@ -127,11 +127,40 @@ def generate_public_key(bpn):
 
 @app.post("/verify")
 def verify_credential():
-    body = HttpUtils.get_body(request)
-    return cryptool.verifyJwsProof(proof=body["proof"], payload=body)
+    try:
+        body = HttpUtils.get_body(request)
+        verified = False
+        try:
+            verified = cryptool.verifyJwsProof(proof=body["proof"], payload=body)
+        except Exception as e:
+            return HttpUtils.response(data={
+                "verified": False,
+                "message": str(e)
+            }, status=400)
+
+        if(not verified):
+            return HttpUtils.response(data={
+                "verified": False,
+                "message": "Verification Failed! Verifiable Credential is not valid!"
+            }, status=400)
+
+        logger.info(msg=f"Verifiable Credential with ID: [{str(body["id"])}] was verified!")
+
+        return HttpUtils.response({
+            "verified": True,
+            "message": "Verified Credential is Valid! The proof was verified!"
+        })
+    except Exception as e:
+        logger.exception(str(e))
+        traceback.print_exc()
+
+    return HttpUtils.response(data={
+                "verified": False,
+                "message": "Verification Failed! Verifiable Credential is not valid!"
+            }, status=400)
 
 @app.post("/<bpn>/sign")
-def sign_credential(bpn):
+def sign_credential3(bpn):
     """
     Signs a credential using the private key provided in the configuration
 
@@ -150,34 +179,31 @@ def sign_credential(bpn):
         if(not op.path_exists(basePath)):
             op.make_dir(basePath)
 
-        keyPath = basePath+"/key.jwt"
-        if(not op.path_exists(keyPath)):
-            keyId = str(uuid.uuid4())
-            key = cryptool.generateJwkKey(keyId)
-            cryptool.storeJwkKey(key=key,keyPath=keyPath)
-            logger.info(f"Created JWT Key with id [{keyId}] for [{bpn}]!")
-        else:
-            key = cryptool.loadJwkKey(keyPath=keyPath)
-        
         privateKeyPath = basePath+"/private_key.pem"
         if(not op.path_exists(privateKeyPath)):
-            pem = key.export_to_pem(True, None)
-            cryptool.storePrivateKey(private_key=pem,keysDir=basePath)
-            private_key = cryptool.loadPrivateKeyFromString(pem)
+            private_key = cryptool.generateEd25519PrivateKey()
+            public_key = private_key.public_key()
+            cryptool.storePublicKey(public_key=cryptool.publicKeyToString(public_key), keysDir=basePath)
+            cryptool.storePrivateKey(private_key=cryptool.privateJwkKeyToPemString(private_key=private_key),keysDir=basePath)
+            logger.info(f"Created Keys for [{bpn}]!")
         else:
             private_key = cryptool.loadPrivateKey(keysDir=basePath)
+            public_key = cryptool.loadPrivateKey(keysDir=basePath)
 
-        if(key is None):
-            return HttpUtils.get_error_response(status=500,message="Internal Server Error")
-        if(private_key is None):
-            return HttpUtils.get_error_response(status=500,message="Internal Server Error")
-
-        publicKey = key.export_public(as_dict=True)
+        keyPath = basePath+"/key.jwt"
+        if(not op.path_exists(keyPath)):
+            key = cryptool.loadJwkPublicKey(public_key_pem=cryptool.publicJwkKeyToPemString(public_key))
+            publicJwtKey = key.export_public(as_dict=True)
+            cryptool.storeJwkKey(key=key,keyPath=keyPath)
+            logger.info(f"Created Public JWT Key with id [{publicJwtKey['kid']}] for [{bpn}]!")
+        else:
+            key = cryptool.loadJwkKey(keyPath=keyPath)
+            publicJwtKey = key.export_public(as_dict=True)
 
         try:
-            vc = cryptool.issueVerifiableCredential(
+            vc = cryptool.issueJwsVerifiableCredential(
                     walletUrl=request.root_url,                              
-                    methodId=publicKey["kid"],
+                    methodId=publicJwtKey["kid"],
                     expirationTimedelta=timedelta(weeks=24),
                     issuerId=bpn, 
                     private_key=private_key, 
@@ -197,6 +223,7 @@ def sign_credential(bpn):
         traceback.print_exc()
 
     return HttpUtils.get_error_response(message="Error when parsing schema!")
+
 
 @app.get("/schema/<semanticIdHash>")
 def schema(semanticIdHash):
@@ -317,8 +344,6 @@ if __name__ == '__main__':
     # Initialize the server environment and get the comand line arguments
     args = get_arguments()
     # Configure the logging configuration depending on the configuration stated
-    log = logging.getLogger('werkzeug')
-    log.disabled = True
     logger = logging.getLogger('staging')
     if(args.debug):
         logger = logging.getLogger('development')
